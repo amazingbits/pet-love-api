@@ -1,8 +1,9 @@
 <div>
-    <img width="120em"
-         align="center"
-         src="https://guiandrade.com.br/fotosgithub/logo-pet-love-modelo.png" 
-         alt="Pet Love">
+    <p align="center">
+        <img width="120em"
+             src="https://guiandrade.com.br/fotosgithub/logo-pet-love-modelo.png" 
+             alt="Pet Love">
+    </p>
 </div>
 
 <br>
