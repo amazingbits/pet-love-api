@@ -254,6 +254,9 @@ nas disciplinas de banco de dados.</p>
     <h5>Código SQL</h5>
     <hr>
 </div>
-```sql
-    codigo SQL
+```ruby
+require 'redcarpet'
+markdown = Redcarpet.new("Hello World!")
+puts markdown.to_html
+coloca markdown.to_html
 ```
