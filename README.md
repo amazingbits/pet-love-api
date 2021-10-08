@@ -253,7 +253,7 @@ nas disciplinas de banco de dados.</p>
     <br>
     <h5>Código SQL</h5>
     <hr>
-    ```sql
-    Código SQL
-    ```
 </div>
+```sql
+    codigo SQL
+```
