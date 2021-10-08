@@ -43,6 +43,7 @@ apresentação do produto.</p>
 
 <div>
     <h3>🧱 Requisitos da API</h3>
+    <hr>
     <table>
         <tr>
             <th colspan="2">RF01 - Manter Usuários</th>
@@ -233,4 +234,26 @@ apresentação do produto.</p>
             <td>Sistema deve poder enviar avisos aos clientes informando sobre serviços como vacinação</td>
         </tr>
     </table>
+</div>
+
+<div>
+    <h3>💽 Banco de Dados</h3>
+    <hr>
+    <p>Como ferramenta de banco de dados nesta solução utilizarei 
+o <strong>MySQL</strong>. Para escolher esta ferramenta, foi
+levado em consideração o fato que a faculdade trabalhou com ela
+nas disciplinas de banco de dados.</p>
+    <br>
+    <h5>Modelo Lógico</h5>
+    <hr>
+    <p align="center">
+        <img src="https://guiandrade.com.br/fotosgithub/modelo-logico.png" 
+             alt="Modelo Lógico">
+    </p>
+    <br>
+    <h5>Código SQL</h5>
+    <hr>
+    ```sql
+    Código SQL
+    ```
 </div>
