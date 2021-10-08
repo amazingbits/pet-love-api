@@ -1,0 +1,23 @@
+{
+  "name": "senac/guilherme-andrade",
+  "description": "API da solu\u0000\u0000o PET Love como trabalho de TCS do curso de An\u0000lise e Desenvolvimento de Sistemas do SENAC SC",
+  "authors": [
+    {
+      "name": "Guilherme Andrade",
+      "email": "gui-keanne@hotmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/"
+    }
+  },
+  "require": {
+    "ext-json": "*",
+    "coffeecode/router": "^1.0",
+    "ext-mbstring": "*",
+    "ext-pdo": "*",
+    "phpunit/phpunit": "^9.5",
+    "firebase/php-jwt": "^5.4"
+  }
+}
