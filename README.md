@@ -524,7 +524,8 @@ Casos de Uso</strong>.</p>
 </div>
 
 <div>
-    <h5>🎴 Prototipação de Telas</h5>
+    <h3>🎴 Prototipação de Telas</h3>
+    <hr>
     <p>Utilizando a ferramenta <strong>Figma</strong>, foram
 prototipadas as telas da página web que será utilizada pelas 
 empresas associadas e o layout do aplicativo mobile que será
