@@ -42,6 +42,25 @@ apresentação do produto.</p>
 </div>
 
 <div>
+    <h3>💎 Tecnologias</h3>
+    <hr>
+    <h5>Prototipação</h5>
+    <div>
+        <img width="50px" src="https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white" alt="Figma">
+        <img width="50px" src="https://img.shields.io/badge/adobephotoshop-%2331A8FF.svg?style=for-the-badge&logo=adobephotoshop&logoColor=white" alt="Photoshop">
+    </div>
+    <h5>API</h5>
+    <div>
+        <img width="50px" src="https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white" alt="PHP">
+        <img width="50px" src="https://img.shields.io/badge/Insomnia-black?style=for-the-badge&logo=insomnia&logoColor=5849BE" alt="Insomnia">
+        <img width="50px" src="https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL">
+        <img width="50px" src="https://img.shields.io/badge/Apache%20Groovy-4298B8.svg?style=for-the-badge&logo=Apache+Groovy&logoColor=white" alt="Apache">
+        <img width="50px" src="https://img.shields.io/badge/phpstorm-143?style=for-the-badge&logo=phpstorm&logoColor=black&color=black&labelColor=darkorchid" alt="PHP Storm">
+    </div>    
+    
+</div>
+
+<div>
     <h3>🧱 Requisitos da API</h3>
     <hr>
     <table>
