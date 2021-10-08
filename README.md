@@ -522,3 +522,16 @@ Casos de Uso</strong>.</p>
     <img src="https://guiandrade.com.br/fotosgithub/diagrama-de-caso-de-uso.jpg" 
          alt="Diagrama de Casos de Uso">
 </div>
+
+<div>
+    <h5>🎴 Prototipação de Telas</h5>
+    <p>Utilizando a ferramenta <strong>Figma</strong>, foram
+prototipadas as telas da página web que será utilizada pelas 
+empresas associadas e o layout do aplicativo mobile que será
+utilizado pelo cliente.</p>
+    <div style="display: inline-block">
+        <a href="https://www.figma.com/proto/iPam7Cws7MKvVeqeQCxsZM/Pet-Love-Web?node-id=1%3A2&starting-point-node-id=1%3A2" target="_blank"><strong>SISTEMA WEB</strong></a>
+        -- 
+        <a href="https://www.figma.com/proto/bNfwsVz4wQi09xQU1EAhDR/Pet-Love-App?node-id=1%3A2&starting-point-node-id=1%3A2" target="_blank"><strong>APLICATIVO MOBILE</strong></a>
+    </div>
+</div>
