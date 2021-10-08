@@ -504,3 +504,21 @@ create table if not exists avaliacao(
     foreign key (usuario) references usuario (id)
     );
 ```
+
+<div>
+    <h3>📓 UML</h3>
+    <hr>
+    <p>Como diagramas UML no projeto, utilizarei o <strong>
+Diagrama de Classes</strong> e o <strong>Diagrama de 
+Casos de Uso</strong>.</p>
+    <br>
+    <h5>Diagrama de Classes</h5>
+    <hr>
+    <img src="https://guiandrade.com.br/fotosgithub/diagrama-de-classes.jpg" 
+         alt="Diagrama de Classes">
+    <br>
+    <h5>Diagrama de Casos de Uso</h5>
+    <hr>
+    <img src="https://guiandrade.com.br/fotosgithub/diagrama-de-caso-de-uso.jpg" 
+         alt="Diagrama de Casos de Uso">
+</div>
