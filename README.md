@@ -1,6 +1,6 @@
 <div>
     <p align="center">
-        <img width="120em"
+        <img width="150em"
              src="https://guiandrade.com.br/fotosgithub/logo-pet-love-modelo.png" 
              alt="Pet Love">
     </p>
@@ -39,4 +39,33 @@ resumo com as principais informações do seu companheiro para
 apresentar ao médico veterinário.</p>
 <p>Será desenvolvida também uma landing page estática de 
 apresentação do produto.</p>
+</div>
+
+<div>
+    <h3>🧱 Requisitos da API</h3>
+    <table>
+        <tr style="background-color: #424242">
+            <th colspan="2">RF01 - Manter Usuários</th>
+        </tr>
+        <tr>
+            <td>RF0101</td>
+            <td>Cadastrar Usuário</td>
+        </tr>
+        <tr>
+            <td>RF0102</td>
+            <td>Atualizar Usuário</td>
+        </tr>
+        <tr>
+            <td>RF0103</td>
+            <td>Listar Usuários</td>
+        </tr>
+        <tr>
+            <td>RF0104</td>
+            <td>Excluir Usuário</td>
+        </tr>
+        <tr>
+            <td>RF0105</td>
+            <td>Manter tabela de apoio para os tipos de usuários</td>
+        </tr>
+    </table>
 </div>
