@@ -44,7 +44,7 @@ apresentação do produto.</p>
 <div>
     <h3>🧱 Requisitos da API</h3>
     <table>
-        <tr style="background-color: #424242">
+        <tr>
             <th colspan="2">RF01 - Manter Usuários</th>
         </tr>
         <tr>
@@ -66,6 +66,171 @@ apresentação do produto.</p>
         <tr>
             <td>RF0105</td>
             <td>Manter tabela de apoio para os tipos de usuários</td>
+        </tr>
+        <tr>
+            <th colspan="2">RF02 - Manter Animais</th>
+        </tr>
+        <tr>
+            <td>RF0201</td>
+            <td>Cadastrar animal</td>
+        </tr>
+        <tr>
+            <td>RF0202</td>
+            <td>Atualizar animal</td>
+        </tr>
+        <tr>
+            <td>RF0203</td>
+            <td>Listar animais por dono</td>
+        </tr>
+        <tr>
+            <td>RF0204</td>
+            <td>Excluir animal</td>
+        </tr>
+        <tr>
+            <td>RF0205</td>
+            <td>Manter tabela de apoio para os tipos de animais</td>
+        </tr>
+        <tr>
+            <td>RF0206</td>
+            <td>Manter tabela de apoio para a raça de animais</td>
+        </tr>
+        <tr>
+            <td>RF0207</td>
+            <td>Manter tabela de apoio para o comportamento de animais</td>
+        </tr>
+        <tr>
+            <th colspan="2">RF03 - Agendamento</th>
+        </tr>
+        <tr>
+            <td>RF0301</td>
+            <td>Cadastrar agenda</td>
+        </tr>
+        <tr>
+            <td>RF0302</td>
+            <td>Atualizar agenda</td>
+        </tr>
+        <tr>
+            <td>RF0303</td>
+            <td>Listar agendas por usuário (empresa)</td>
+        </tr>
+        <tr>
+            <td>RF0304</td>
+            <td>Excluir agenda</td>
+        </tr>
+        <tr>
+            <td>RF0305</td>
+            <td>Manter tabela de bloqueio para agendas</td>
+        </tr>
+        <tr>
+            <td>RF0306</td>
+            <td>Manter tabela de itens (consultas) para cada agenda</td>
+        </tr>
+        <tr>
+            <th colspan="2">RF04 - Vacinação</th>
+        </tr>
+        <tr>
+            <td>RF0401</td>
+            <td>Cadastrar vacinação</td>
+        </tr>
+        <tr>
+            <td>RF0402</td>
+            <td>Atualizar vacinação</td>
+        </tr>
+        <tr>
+            <td>RF0403</td>
+            <td>Listar vacinações por animais de usuários</td>
+        </tr>
+        <tr>
+            <td>RF0404</td>
+            <td>Excluir vacinação</td>
+        </tr>
+        <tr>
+            <td>RF0405</td>
+            <td>Manter tabela de apoio para cadastrar as vacinas</td>
+        </tr>
+        <tr>
+            <th colspan="2">RF05 - Exames</th>
+        </tr>
+        <tr>
+            <td>RF0501</td>
+            <td>Cadastrar exames</td>
+        </tr>
+        <tr>
+            <td>RF0502</td>
+            <td>Editar exames</td>
+        </tr>
+        <tr>
+            <td>RF0503</td>
+            <td>Listar exames por animais de usuários</td>
+        </tr>
+        <tr>
+            <td>RF0504</td>
+            <td>Excluir exames</td>
+        </tr>
+        <tr>
+            <th colspan="2">RF06 - Consultas</th>
+        </tr>
+        <tr>
+            <td>RF0601</td>
+            <td>Cadastrar consultas</td>
+        </tr>
+        <tr>
+            <td>RF0602</td>
+            <td>Editar consultas</td>
+        </tr>
+        <tr>
+            <td>RF0603</td>
+            <td>Listar consultas por animais de usuários</td>
+        </tr>
+        <tr>
+            <td>RF0604</td>
+            <td>Excluir consultas</td>
+        </tr>
+        <tr>
+            <th colspan="2">RF07 - Sistema</th>
+        </tr>
+        <tr>
+            <td>RF0701</td>
+            <td>Cliente deve poder manter seus pets</td>
+        </tr>
+        <tr>
+            <td>RF0702</td>
+            <td>Cliente deve poder gerenciar a vacinação dos seus pets</td>
+        </tr>
+        <tr>
+            <td>RF0703</td>
+            <td>Cliente deve poder gerenciar os exames dos seus pets</td>
+        </tr>
+        <tr>
+            <td>RF0704</td>
+            <td>Cliente deve poder gerenciar as consultas dos seus pets</td>
+        </tr>
+        <tr>
+            <td>RF0705</td>
+            <td>Cliente deve poder procurar serviços para os seus pets</td>
+        </tr>
+        <tr>
+            <td>RF0706</td>
+            <td>Cliente deve poder avaliar empresas das quais utilizaram algum serviço</td>
+        </tr>
+        <tr>
+            <td>RF0707</td>
+            <td>Empresa deve poder gerenciar suas agendas</td>
+        </tr>
+        <tr>
+            <th colspan="2">Requisitos não funcionais</th>
+        </tr>
+        <tr>
+            <td>RNF01</td>
+            <td>API deve suportar autenticação JWT</td>
+        </tr>
+        <tr>
+            <td>RNF02</td>
+            <td>Deve haver responsividade em todo o layout da aplicação</td>
+        </tr>
+        <tr>
+            <td>RNF03</td>
+            <td>Sistema deve poder enviar avisos aos clientes informando sobre serviços como vacinação</td>
         </tr>
     </table>
 </div>
