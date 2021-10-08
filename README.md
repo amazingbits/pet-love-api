@@ -13,6 +13,7 @@
 API da solução <b>PET LOVE</b>. </p>
 </div>
 
+<br>
 <div>
     <h3>🎈 O Projeto</h3>
 <hr>
@@ -41,6 +42,7 @@ apresentar ao médico veterinário.</p>
 apresentação do produto.</p>
 </div>
 
+<br>
 <div>
     <h3>💎 Tecnologias</h3>
     <hr>
@@ -60,8 +62,9 @@ apresentação do produto.</p>
     
 </div>
 
+<br>
 <div>
-    <h3>🧱 Requisitos da API</h3>
+    <h3>🧱 Requisitos funcionais e não funcionais</h3>
     <hr>
     <table>
         <tr>
@@ -255,6 +258,7 @@ apresentação do produto.</p>
     </table>
 </div>
 
+<br>
 <div>
     <h3>💽 Banco de Dados</h3>
     <hr>
@@ -524,6 +528,7 @@ create table if not exists avaliacao(
     );
 ```
 
+<br>
 <div>
     <h3>📓 UML</h3>
     <hr>
@@ -542,6 +547,7 @@ Casos de Uso</strong>.</p>
          alt="Diagrama de Casos de Uso">
 </div>
 
+<br>
 <div>
     <h3>🎴 Prototipação de Telas</h3>
     <hr>
