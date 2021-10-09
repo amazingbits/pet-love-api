@@ -163,13 +163,14 @@ class BaseDAO implements iBaseDAO
         $c = 0;
         foreach($params as $key=>$value) {
             if($c === 0) {
-                $sqlQuery .= " WHERE ";
+                $sqlQuery .= " WHERE (";
             } else {
-                $sqlQuery .= " AND ";
+                $sqlQuery .= " OR ";
             }
             $sqlQuery .= " {$key} {$compareType} :{$key}";
             $c++;
         }
+        $sqlQuery .= ") ";
 
         if($removeItem) {
             foreach($itemsToRemove as $key=>$value) {

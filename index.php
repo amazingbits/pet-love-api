@@ -31,6 +31,15 @@ $router->post("/save", "TipoAnimalController:save");
 $router->put("/update/{id}", "TipoAnimalController:update");
 $router->delete("/delete/{id}", "TipoAnimalController:delete");
 
+// Usuários
+$router->group("usuario");
+$router->get("/{orderColumn}/{orderDirection}/{limit}/{offset}/{justActive}", "UsuarioController:all");
+$router->get("/{id}", "UsuarioController:getById");
+$router->get("/changeVisibility/{id}/{visibility}", "UsuarioController:changeVisibility");
+$router->post("/save", "UsuarioController:save");
+$router->put("/update/{id}", "UsuarioController:update");
+$router->delete("/delete/{id}", "UsuarioController:delete");
+
 $router->group("error");
 $router->get("/{status}", "ErrorController:index");
 

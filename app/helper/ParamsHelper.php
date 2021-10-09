@@ -17,4 +17,25 @@ class ParamsHelper
         }
         return $data;
     }
+
+    public function validateParams(array $params, array $needle): bool
+    {
+        if(empty($params) || empty($needle)) return false;
+        if(count($params) !== count($needle)) return false;
+        $needleKeys = array_keys($needle);
+        $needleTypes = [];
+        foreach($needle as $key=>$value) {
+            array_push($needleTypes, $value);
+        }
+        $c = 0;
+        foreach($params as $key=>$value) {
+            $key = mb_strtolower($key);
+            $type = gettype($value);
+            if(!in_array($key, $needleKeys)) return false;
+            if($type !== $needleTypes[$c]) return false;
+            $c++;
+        }
+
+        return true;
+    }
 }

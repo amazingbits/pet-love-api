@@ -29,7 +29,7 @@ create table if not exists usuario(
     email text not null,
     telefone text not null,
     path_url text,
-    nota float not null default 0,
+    nota float not null default 5,
     tipo_usuario int not null,
     criado_em datetime not null default now(),
     ativo boolean not null default true,
