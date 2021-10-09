@@ -40,6 +40,15 @@ $router->post("/save", "UsuarioController:save");
 $router->put("/update/{id}", "UsuarioController:update");
 $router->delete("/delete/{id}", "UsuarioController:delete");
 
+// Animal comportamento
+$router->group("animalcomportamento");
+$router->get("/", "AnimalComportamentoController:all");
+$router->get("/{id}", "AnimalComportamentoController:getById");
+$router->get("/changeVisibility/{id}/{visibility}", "AnimalComportamentoController:changeVisibility");
+$router->post("/save", "AnimalComportamentoController:save");
+$router->put("/update/{id}", "AnimalComportamentoController:update");
+$router->delete("/delete/{id}", "AnimalComportamentoController:delete");
+
 $router->group("error");
 $router->get("/{status}", "ErrorController:index");
 
