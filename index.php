@@ -58,6 +58,15 @@ $router->post("/save", "AnimalRacaController:save");
 $router->put("/update/{id}", "AnimalRacaController:update");
 $router->delete("/delete/{id}", "AnimalRacaController:delete");
 
+// Animal
+$router->group("animal");
+$router->get("/{orderColumn}/{orderDirection}/{limit}/{offset}/{justActive}", "AnimalController:all");
+$router->get("/{id}", "AnimalController:getById");
+$router->get("/changeVisibility/{id}/{visibility}", "AnimalController:changeVisibility");
+$router->post("/save", "AnimalController:save");
+$router->put("/update/{id}", "AnimalController:update");
+$router->delete("/delete/{id}", "AnimalController:delete");
+
 $router->group("error");
 $router->get("/{status}", "ErrorController:index");
 
