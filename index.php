@@ -125,6 +125,15 @@ $router->post("/save", "AgendaController:save");
 $router->put("/update/{id}", "AgendaController:update");
 $router->delete("/delete/{id}", "AgendaController:delete");
 
+// Bloqueio
+$router->group("bloqueio");
+$router->get("/", "BloqueioController:all");
+$router->get("/{id}", "BloqueioController:getById");
+$router->get("/changeVisibility/{id}/{visibility}", "BloqueioController:changeVisibility");
+$router->post("/save", "BloqueioController:save");
+$router->put("/update/{id}", "BloqueioController:update");
+$router->delete("/delete/{id}", "BloqueioController:delete");
+
 $router->group("error");
 $router->get("/{status}", "ErrorController:index");
 

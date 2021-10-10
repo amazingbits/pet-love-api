@@ -188,6 +188,8 @@ create table if not exists bloqueio(
     agenda int not null,
     data_inicial date not null,
     data_final date not null,
+    criado_em datetime not null default now(),
+    ativo int not null default 1,
     constraint fk_bloqueio_agenda
     foreign key (agenda) references agenda (id)
 );
