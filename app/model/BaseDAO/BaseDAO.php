@@ -52,12 +52,14 @@ class BaseDAO implements iBaseDAO
         $conn = Connection::getInstance();
         $stmt = $conn->prepare($sqlQuery);
         $stmt->bindValue(":id", $id);
+        $reg = str_replace("_", " ", $this->table);
+        $reg = ucfirst($reg);
         try {
             $stmt->execute();
             if($stmt->rowCount() === 0) {
                 $view = new DefaultController();
                 $view->response([
-                    "message" => "Nenhum registro encontrado!"
+                    "message" => "{$reg} com este identificador não foi encontrado!"
                 ], HTTP_NOT_FOUND);
             }
             return $stmt->fetch();
@@ -199,5 +201,10 @@ class BaseDAO implements iBaseDAO
     protected function setTable(string $table)
     {
         $this->table = $table;
+    }
+
+    protected function getTable(): string
+    {
+        return $this->table;
     }
 }

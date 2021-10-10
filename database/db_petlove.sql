@@ -141,6 +141,8 @@ create table if not exists endereco(
     latitude text,
     longitude text,
     usuario int not null,
+    created_at datetime not null default now(),
+    ativo int not null default 1,
     constraint fk_endereco_usuario
     foreign key (usuario) references usuario (id)
 );

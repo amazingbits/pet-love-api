@@ -4,46 +4,46 @@ namespace App\Controller;
 
 use App\Core\DefaultController;
 use App\Helper\ParamsHelper;
+use App\Model\EnderecoDAO\EnderecoDAO;
 use App\Model\UsuarioDAO\UsuarioDAO;
 
-class UsuarioController extends DefaultController
+class EnderecoController extends DefaultController
 {
     private ParamsHelper $params;
+    private EnderecoDAO $enderecoDAO;
     private UsuarioDAO $usuarioDAO;
 
     public function __construct()
     {
         $this->params = new ParamsHelper();
+        $this->enderecoDAO = new EnderecoDAO();
         $this->usuarioDAO = new UsuarioDAO();
     }
 
-    public function all($data)
+    public function all()
     {
-        $orderColumn = $data["orderColumn"];
-        $orderDirection = $data["orderDirection"];
-        $limit = (int)$data["limit"];
-        $offset = (int)$data["offset"];
-        $justActive = (bool)$data["justActive"];
-        $this->response($this->usuarioDAO->pegarUsuarioComEnderecoEAnimais($orderColumn, $orderDirection, $limit, $offset, $justActive));
+        $this->response($this->enderecoDAO->selectAll());
     }
 
     public function getById($data)
     {
         $id = (int)$data["id"];
-        $this->response($this->usuarioDAO->selectById($id));
+        $this->response($this->enderecoDAO->selectById($id));
     }
 
     public function save()
     {
         $params = $this->params->getJsonParams();
         $needle = [
-            "login" => "string",
-            "senha" => "string",
-            "nome" => "string",
-            "email" => "string",
-            "telefone" => "string",
-            "path_url" => "string",
-            "tipo_usuario" => "integer"
+            "cep" => "string",
+            "rua" => "string",
+            "numero" => "string",
+            "complemento" => "string",
+            "cidade" => "string",
+            "estado" => "string",
+            "latitude" => "string",
+            "longitude" => "string",
+            "usuario" => "integer"
         ];
         if(!$this->params->validateParams($params, $needle)) {
             $this->response([
@@ -51,25 +51,13 @@ class UsuarioController extends DefaultController
             ], HTTP_BAD_REQUEST);
         }
 
-        $params["senha"] = md5($params["senha"]);
-
-        if(!filter_var($params["email"], FILTER_VALIDATE_EMAIL)) {
+        if(empty($this->usuarioDAO->selectById((int)$params["usuario"]))) {
             $this->response([
-                "message" => "E-mail inválido!"
+                "message" => "Não existe usuário com o ID informado"
             ], HTTP_BAD_REQUEST);
         }
 
-        $compareParams = [
-            "email" => $params["email"],
-            "login" => $params["login"]
-        ];
-        if($this->usuarioDAO->compare($compareParams)) {
-            $this->response([
-                "message" => "Já existem usuários com este login ou email"
-            ], HTTP_BAD_REQUEST);
-        }
-
-        if($this->usuarioDAO->insert($params)) {
+        if($this->enderecoDAO->insert($params)) {
             $this->response([
                 "message" => "Registro inserido com sucesso!"
             ], HTTP_CREATED);
@@ -79,17 +67,20 @@ class UsuarioController extends DefaultController
         ], HTTP_INTERNAL_SERVER_ERROR);
     }
 
-    public function update($data = [])
+    public function update($data)
     {
         $id = (int)$data["id"];
         $params = $this->params->getJsonParams();
         $needle = [
-            "login" => "string",
-            "nome" => "string",
-            "email" => "string",
-            "telefone" => "string",
-            "path_url" => "string",
-            "tipo_usuario" => "integer"
+            "cep" => "string",
+            "rua" => "string",
+            "numero" => "string",
+            "complemento" => "string",
+            "cidade" => "string",
+            "estado" => "string",
+            "latitude" => "string",
+            "longitude" => "string",
+            "usuario" => "integer"
         ];
         if(!$this->params->validateParams($params, $needle)) {
             $this->response([
@@ -97,26 +88,13 @@ class UsuarioController extends DefaultController
             ], HTTP_BAD_REQUEST);
         }
 
-        if(!filter_var($params["email"], FILTER_VALIDATE_EMAIL)) {
+        if(empty($this->enderecoDAO->selectById($id))) {
             $this->response([
-                "message" => "E-mail inválido!"
+                "message" => "Não foi encontrado endereço com este ID"
             ], HTTP_BAD_REQUEST);
         }
 
-        $compareParams = [
-            "email" => $params["email"],
-            "login" => $params["login"]
-        ];
-        $usuario = $this->usuarioDAO->selectById($id);
-        $loginAtual = $usuario["login"];
-        $emailAtual = $usuario["email"];
-        if($this->usuarioDAO->compare($compareParams, "=", true, ["login" => $loginAtual, "email" => $emailAtual])) {
-            $this->response([
-                "message" => "Já existem usuários com este login ou email"
-            ], HTTP_BAD_REQUEST);
-        }
-
-        if($this->usuarioDAO->update($params, ["id" => $id])) {
+        if($this->enderecoDAO->update($params, ["id" => $id])) {
             $this->response([
                 "message" => "Registro atualizado com sucesso!"
             ], HTTP_CREATED);
@@ -130,13 +108,13 @@ class UsuarioController extends DefaultController
     {
         $id = (int)$data["id"];
 
-        if (!$this->usuarioDAO->compare(["id" => $id])) {
+        if (!$this->enderecoDAO->compare(["id" => $id])) {
             $this->response([
                 "message" => "Não existe registro com este ID"
             ], HTTP_NOT_FOUND);
         }
 
-        if ($this->usuarioDAO->delete($id)) {
+        if ($this->enderecoDAO->delete($id)) {
             $this->response([
                 "message" => "Registro deletado com sucesso!"
             ], HTTP_CREATED);
@@ -152,13 +130,13 @@ class UsuarioController extends DefaultController
         $id = (int)$data["id"];
         $visibility = (int)$data["visibility"];
 
-        if (!$this->usuarioDAO->compare(["id" => $id])) {
+        if (!$this->enderecoDAO->compare(["id" => $id])) {
             $this->response([
                 "message" => "Não existe registro com este ID"
             ], HTTP_NOT_FOUND);
         }
 
-        if ($this->usuarioDAO->disable($id, $visibility)) {
+        if ($this->enderecoDAO->disable($id, $visibility)) {
             $this->response([
                 "message" => "Visibilidade do registro alterada com sucesso!"
             ], HTTP_CREATED);

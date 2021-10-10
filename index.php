@@ -67,6 +67,15 @@ $router->post("/save", "AnimalController:save");
 $router->put("/update/{id}", "AnimalController:update");
 $router->delete("/delete/{id}", "AnimalController:delete");
 
+// Endereço
+$router->group("endereco");
+$router->get("/", "EnderecoController:all");
+$router->get("/{id}", "EnderecoController:getById");
+$router->get("/changeVisibility/{id}/{visibility}", "EnderecoController:changeVisibility");
+$router->post("/save", "EnderecoController:save");
+$router->put("/update/{id}", "EnderecoController:update");
+$router->delete("/delete/{id}", "EnderecoController:delete");
+
 $router->group("error");
 $router->get("/{status}", "ErrorController:index");
 
