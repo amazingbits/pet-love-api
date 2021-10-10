@@ -59,4 +59,15 @@ class DateHelperTest extends TestCase
         $days = 50;
         $this->assertEquals("2021-11-29", $dateHelper->addDaysToDate($date, $days));
     }
+
+    /** @test */
+    public function timeIdBiggerTest()
+    {
+        $dateHelper = new DateHelper();
+        $time1 = "10:00";
+        $time2 = "10:01";
+        $this->assertEquals(false, $dateHelper->timeIsBigger($time1, $time2));
+        $this->assertEquals(false, $dateHelper->timeIsBigger($time1, $time1));
+        $this->assertEquals(true, $dateHelper->timeIsBigger($time2, $time1));
+    }
 }

@@ -78,4 +78,21 @@ class DateHelper
         if ($year < 1500) return false;
         return true;
     }
+
+    public function isTime(string $time): bool
+    {
+        if(mb_strlen($time) !== 5) return false;
+        $time = explode(":", $time);
+        if(count($time) !== 2) return false;
+        $hour = (int)$time[0];
+        $minutes = (int)$time[1];
+        if($hour < 0 || $hour > 23) return false;
+        if($minutes < 0 || $minutes > 59) return false;
+        return true;
+    }
+
+    public function timeIsBigger(string $timeOne, string $timeTwo): bool
+    {
+        return strtotime($timeOne) > strtotime($timeTwo);
+    }
 }

@@ -115,6 +115,16 @@ $router->post("/save", "ConsultaController:save");
 $router->put("/update/{id}", "ConsultaController:update");
 $router->delete("/delete/{id}", "ConsultaController:delete");
 
+// Agendas
+$router->group("agenda");
+$router->get("/{orderColumn}/{orderDirection}/{limit}/{offset}/{justActive}", "AgendaController:all");
+$router->get("/{id}", "AgendaController:getById");
+$router->get("/byuser/{id}/{active}", "AgendaController:getByUser");
+$router->get("/changeVisibility/{id}/{visibility}", "AgendaController:changeVisibility");
+$router->post("/save", "AgendaController:save");
+$router->put("/update/{id}", "AgendaController:update");
+$router->delete("/delete/{id}", "AgendaController:delete");
+
 $router->group("error");
 $router->get("/{status}", "ErrorController:index");
 
