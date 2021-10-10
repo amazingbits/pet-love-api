@@ -104,6 +104,15 @@ $router->post("/save", "ExameController:save");
 $router->put("/update/{id}", "ExameController:update");
 $router->delete("/delete/{id}", "ExameController:delete");
 
+// Consultas
+$router->group("consulta");
+$router->get("/{orderColumn}/{orderDirection}/{limit}/{offset}/{justActive}", "ConsultaController:all");
+$router->get("/{id}", "ConsultaController:getById");
+$router->get("/changeVisibility/{id}/{visibility}", "ConsultaController:changeVisibility");
+$router->post("/save", "ConsultaController:save");
+$router->put("/update/{id}", "ConsultaController:update");
+$router->delete("/delete/{id}", "ConsultaController:delete");
+
 $router->group("error");
 $router->get("/{status}", "ErrorController:index");
 
