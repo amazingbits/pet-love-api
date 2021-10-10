@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Core\DefaultController;
+use App\Helper\DateHelper;
 use App\Helper\ParamsHelper;
 use App\Model\AnimalDAO\AnimalDAO;
 use App\Model\VacinacaoDAO\VacinacaoDAO;
@@ -11,6 +12,7 @@ use App\Model\VacinaDAO\VacinaDAO;
 class VacinacaoController extends DefaultController
 {
     private ParamsHelper $params;
+    private DateHelper $dateHelper;
     private VacinacaoDAO $vacinacaoDAO;
     private VacinaDAO $vacinaDAO;
     private AnimalDAO $animalDAO;
@@ -18,6 +20,7 @@ class VacinacaoController extends DefaultController
     public function __construct()
     {
         $this->params = new ParamsHelper();
+        $this->dateHelper = new DateHelper();
         $this->vacinacaoDAO = new VacinacaoDAO();
         $this->vacinaDAO = new VacinaDAO();
         $this->animalDAO = new AnimalDAO();
@@ -45,6 +48,18 @@ class VacinacaoController extends DefaultController
         if(!$this->params->validateParams($params, $needle)) {
             $this->response([
                 "message" => "Parâmetros insuficientes ou tipos de parâmetros inválidos!"
+            ], HTTP_BAD_REQUEST);
+        }
+
+        if($this->dateHelper->isBigger($params["data_aplicacao"], date("Y-m-d"))) {
+            $this->response([
+                "message" => "A data de aplicação não pode ser maior que a data atual"
+            ], HTTP_BAD_REQUEST);
+        }
+
+        if(!$this->dateHelper->isSqlDate($params["data_aplicacao"])) {
+            $this->response([
+                "message" => "A data de aplicação deve ser válida!"
             ], HTTP_BAD_REQUEST);
         }
 
@@ -82,6 +97,24 @@ class VacinacaoController extends DefaultController
         if(!$this->params->validateParams($params, $needle)) {
             $this->response([
                 "message" => "Parâmetros insuficientes ou tipos de parâmetros inválidos!"
+            ], HTTP_BAD_REQUEST);
+        }
+
+        if($this->dateHelper->isBigger($params["data_aplicacao"], date("Y-m-d"))) {
+            $this->response([
+                "message" => "A data de aplicação não pode ser maior que a data atual"
+            ], HTTP_BAD_REQUEST);
+        }
+
+        if(!$this->dateHelper->isSqlDate($params["data_aplicacao"])) {
+            $this->response([
+                "message" => "A data de aplicação deve ser válida!"
+            ], HTTP_BAD_REQUEST);
+        }
+
+        if(empty($this->vacinacaoDAO->selectById($id))) {
+            $this->response([
+                "message" => "Não existe vacinação com o ID informado"
             ], HTTP_BAD_REQUEST);
         }
 
