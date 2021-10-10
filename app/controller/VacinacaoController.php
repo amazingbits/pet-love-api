@@ -4,39 +4,43 @@ namespace App\Controller;
 
 use App\Core\DefaultController;
 use App\Helper\ParamsHelper;
-use App\Model\AnimalRacaDAO\AnimalRacaDAO;
-use App\Model\TipoAnimalDAO\TipoAnimalDAO;
+use App\Model\AnimalDAO\AnimalDAO;
+use App\Model\VacinacaoDAO\VacinacaoDAO;
+use App\Model\VacinaDAO\VacinaDAO;
 
-class AnimalRacaController extends DefaultController
+class VacinacaoController extends DefaultController
 {
     private ParamsHelper $params;
-    private AnimalRacaDAO $animalRacaDAO;
-    private TipoAnimalDAO $tipoAnimalDAO;
+    private VacinacaoDAO $vacinacaoDAO;
+    private VacinaDAO $vacinaDAO;
+    private AnimalDAO $animalDAO;
 
     public function __construct()
     {
         $this->params = new ParamsHelper();
-        $this->animalRacaDAO = new AnimalRacaDAO();
-        $this->tipoAnimalDAO = new TipoAnimalDAO();
+        $this->vacinacaoDAO = new VacinacaoDAO();
+        $this->vacinaDAO = new VacinaDAO();
+        $this->animalDAO = new AnimalDAO();
     }
 
     public function all()
     {
-        $this->response($this->animalRacaDAO->selectAll());
+        $this->response($this->vacinacaoDAO->selectAll());
     }
 
     public function getById($data)
     {
         $id = (int)$data["id"];
-        $this->response($this->animalRacaDAO->selectById($id));
+        $this->response($this->vacinacaoDAO->selectById($id));
     }
 
     public function save()
     {
         $params = $this->params->getJsonParams();
         $needle = [
-            "descricao" => "string",
-            "tipo_animal" => "integer"
+            "animal" => "integer",
+            "vacina" => "integer",
+            "data_aplicacao" => "string"
         ];
         if(!$this->params->validateParams($params, $needle)) {
             $this->response([
@@ -44,22 +48,19 @@ class AnimalRacaController extends DefaultController
             ], HTTP_BAD_REQUEST);
         }
 
-        $compareParams = [
-            "descricao" => $params["descricao"]
-        ];
-        if($this->animalRacaDAO->compare($compareParams)) {
+        if(empty($this->vacinaDAO->selectById((int)$params["vacina"]))) {
             $this->response([
-                "message" => "Já existem registro com esta descrição"
+                "message" => "Não existe vacina com o ID informado"
             ], HTTP_BAD_REQUEST);
         }
 
-        if(empty($this->tipoAnimalDAO->selectById((int)$params["tipo_animal"]))) {
+        if(empty($this->animalDAO->selectById((int)$params["animal"]))) {
             $this->response([
-                "message" => "Não existe tipo de animal com o ID informado"
+                "message" => "Não existe animal com o ID informado"
             ], HTTP_BAD_REQUEST);
         }
 
-        if($this->animalRacaDAO->insert($params)) {
+        if($this->vacinacaoDAO->insert($params)) {
             $this->response([
                 "message" => "Registro inserido com sucesso!"
             ], HTTP_CREATED);
@@ -74,8 +75,9 @@ class AnimalRacaController extends DefaultController
         $id = (int)$data["id"];
         $params = $this->params->getJsonParams();
         $needle = [
-            "descricao" => "string",
-            "tipo_animal" => "integer"
+            "animal" => "integer",
+            "vacina" => "integer",
+            "data_aplicacao" => "string"
         ];
         if(!$this->params->validateParams($params, $needle)) {
             $this->response([
@@ -83,18 +85,7 @@ class AnimalRacaController extends DefaultController
             ], HTTP_BAD_REQUEST);
         }
 
-        $compareParams = [
-            "descricao" => $params["descricao"]
-        ];
-        $raca = $this->animalRacaDAO->selectById($id);
-        $descricaoAtual = $raca["descricao"];
-        if($this->animalRacaDAO->compare($compareParams, "=", true, ["descricao" => $descricaoAtual])) {
-            $this->response([
-                "message" => "Já existem registros com esta descrição"
-            ], HTTP_BAD_REQUEST);
-        }
-
-        if($this->animalRacaDAO->update($params, ["id" => $id])) {
+        if($this->vacinacaoDAO->update($params, ["id" => $id])) {
             $this->response([
                 "message" => "Registro atualizado com sucesso!"
             ], HTTP_CREATED);
@@ -108,13 +99,13 @@ class AnimalRacaController extends DefaultController
     {
         $id = (int)$data["id"];
 
-        if (!$this->animalRacaDAO->compare(["id" => $id])) {
+        if (!$this->vacinacaoDAO->compare(["id" => $id])) {
             $this->response([
                 "message" => "Não existe registro com este ID"
             ], HTTP_NOT_FOUND);
         }
 
-        if ($this->animalRacaDAO->delete($id)) {
+        if ($this->vacinacaoDAO->delete($id)) {
             $this->response([
                 "message" => "Registro deletado com sucesso!"
             ], HTTP_CREATED);
@@ -130,13 +121,13 @@ class AnimalRacaController extends DefaultController
         $id = (int)$data["id"];
         $visibility = (int)$data["visibility"];
 
-        if (!$this->animalRacaDAO->compare(["id" => $id])) {
+        if (!$this->vacinacaoDAO->compare(["id" => $id])) {
             $this->response([
                 "message" => "Não existe registro com este ID"
             ], HTTP_NOT_FOUND);
         }
 
-        if ($this->animalRacaDAO->disable($id, $visibility)) {
+        if ($this->vacinacaoDAO->disable($id, $visibility)) {
             $this->response([
                 "message" => "Visibilidade do registro alterada com sucesso!"
             ], HTTP_CREATED);
@@ -145,5 +136,18 @@ class AnimalRacaController extends DefaultController
         $this->response([
             "message" => "Erro ao alterar visibilidade do registro!"
         ], HTTP_INTERNAL_SERVER_ERROR);
+    }
+
+    public function verificarSeEHoraDeVacinar($data)
+    {
+        $idAnimal = (int)$data["idAnimal"];
+        if($this->vacinacaoDAO->verificarSeEHoraDeVacinar($idAnimal)) {
+            $this->response([
+                "message" => "Você possui vacinas em atraso!"
+            ]);
+        }
+        $this->response([
+            "message" => "Está tudo ok com as vacinas do seu pet!"
+        ]);
     }
 }

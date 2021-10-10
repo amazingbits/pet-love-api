@@ -37,6 +37,8 @@ create table if not exists usuario(
     foreign key (tipo_usuario) references tipo_usuario (id)
 );
 
+insert into usuario (login, senha, nome, email, telefone, path_url, tipo_usuario) values ("admin", "21232f297a57a5a743894a0e4a801fc3", "Guilherme Andrade", "gui-keanne@hotmail.com", "48998149069", "path_to_img", 1);
+
 create table if not exists animal_comportamento(
 	id int not null auto_increment primary key,
     descricao text not null,
@@ -130,6 +132,8 @@ create table if not exists animal(
     foreign key (dono) references usuario (id)
 );
 
+insert into animal (sexo, nome, nascimento, animal_raca, animal_comportamento, tipo_animal, dono) values ("Fêmea", "Vivi", "2017-05-01", 48, 1, 1, 1);
+
 create table if not exists endereco(
 	id int not null auto_increment primary key,
     cep text,
@@ -146,6 +150,8 @@ create table if not exists endereco(
     constraint fk_endereco_usuario
     foreign key (usuario) references usuario (id)
 );
+
+insert into endereco (cep, rua, numero, complemento, cidade, estado, latitude, longitude, usuario) values ("88047210", "Tv. Debrandino Machado", "197", "fundos", "Florianópolis", "SC", "-27.635548", "-48.5230657", 1);
 
 create table if not exists agenda(
 	id int not null auto_increment primary key,
@@ -188,7 +194,7 @@ create table if not exists bloqueio(
 
 create table if not exists vacina(
 	id int not null auto_increment primary key,
-    descricao varchar(255) not null unique,
+    descricao varchar(255) not null,
     duracao_dias int not null,
     ativo boolean not null default true,
     criado_em datetime not null default now(),
@@ -208,6 +214,8 @@ create table if not exists vacinacao(
     animal int not null,
     vacina int not null,
     data_aplicacao date not null,
+    criado_em datetime not null default now(),
+    ativo int not null default 1,
     constraint fk_vacinacao_animal
     foreign key (animal) references animal (id),
     constraint fk_vacinacao_vacina

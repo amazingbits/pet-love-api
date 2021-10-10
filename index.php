@@ -76,6 +76,25 @@ $router->post("/save", "EnderecoController:save");
 $router->put("/update/{id}", "EnderecoController:update");
 $router->delete("/delete/{id}", "EnderecoController:delete");
 
+// Vacina
+$router->group("vacina");
+$router->get("/", "VacinaController:all");
+$router->get("/{id}", "VacinaController:getById");
+$router->get("/changeVisibility/{id}/{visibility}", "VacinaController:changeVisibility");
+$router->post("/save", "VacinaController:save");
+$router->put("/update/{id}", "VacinaController:update");
+$router->delete("/delete/{id}", "VacinaController:delete");
+
+// Vacinação
+$router->group("vacinacao");
+$router->get("/", "VacinacaoController:all");
+$router->get("/{id}", "VacinacaoController:getById");
+$router->get("/changeVisibility/{id}/{visibility}", "VacinacaoController:changeVisibility");
+$router->get("/horadevacinar/{idAnimal}", "VacinacaoController:verificarSeEHoraDeVacinar");
+$router->post("/save", "VacinacaoController:save");
+$router->put("/update/{id}", "VacinacaoController:update");
+$router->delete("/delete/{id}", "VacinacaoController:delete");
+
 $router->group("error");
 $router->get("/{status}", "ErrorController:index");
 

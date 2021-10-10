@@ -4,31 +4,31 @@ namespace App\Controller;
 
 use App\Core\DefaultController;
 use App\Helper\ParamsHelper;
-use App\Model\AnimalRacaDAO\AnimalRacaDAO;
 use App\Model\TipoAnimalDAO\TipoAnimalDAO;
+use App\Model\VacinaDAO\VacinaDAO;
 
-class AnimalRacaController extends DefaultController
+class VacinaController extends DefaultController
 {
     private ParamsHelper $params;
-    private AnimalRacaDAO $animalRacaDAO;
+    private VacinaDAO $vacinaDAO;
     private TipoAnimalDAO $tipoAnimalDAO;
 
     public function __construct()
     {
         $this->params = new ParamsHelper();
-        $this->animalRacaDAO = new AnimalRacaDAO();
+        $this->vacinaDAO = new VacinaDAO();
         $this->tipoAnimalDAO = new TipoAnimalDAO();
     }
 
     public function all()
     {
-        $this->response($this->animalRacaDAO->selectAll());
+        $this->response($this->vacinaDAO->selectAll());
     }
 
     public function getById($data)
     {
         $id = (int)$data["id"];
-        $this->response($this->animalRacaDAO->selectById($id));
+        $this->response($this->vacinaDAO->selectById($id));
     }
 
     public function save()
@@ -36,7 +36,8 @@ class AnimalRacaController extends DefaultController
         $params = $this->params->getJsonParams();
         $needle = [
             "descricao" => "string",
-            "tipo_animal" => "integer"
+            "duracao_dias" => "integer",
+            "tipo" => "integer"
         ];
         if(!$this->params->validateParams($params, $needle)) {
             $this->response([
@@ -47,19 +48,19 @@ class AnimalRacaController extends DefaultController
         $compareParams = [
             "descricao" => $params["descricao"]
         ];
-        if($this->animalRacaDAO->compare($compareParams)) {
+        if($this->vacinaDAO->compare($compareParams)) {
             $this->response([
                 "message" => "Já existem registro com esta descrição"
             ], HTTP_BAD_REQUEST);
         }
 
-        if(empty($this->tipoAnimalDAO->selectById((int)$params["tipo_animal"]))) {
+        if(empty($this->tipoAnimalDAO->selectById((int)$params["tipo"]))) {
             $this->response([
                 "message" => "Não existe tipo de animal com o ID informado"
             ], HTTP_BAD_REQUEST);
         }
 
-        if($this->animalRacaDAO->insert($params)) {
+        if($this->vacinaDAO->insert($params)) {
             $this->response([
                 "message" => "Registro inserido com sucesso!"
             ], HTTP_CREATED);
@@ -75,7 +76,8 @@ class AnimalRacaController extends DefaultController
         $params = $this->params->getJsonParams();
         $needle = [
             "descricao" => "string",
-            "tipo_animal" => "integer"
+            "duracao_dias" => "integer",
+            "tipo" => "integer"
         ];
         if(!$this->params->validateParams($params, $needle)) {
             $this->response([
@@ -86,15 +88,15 @@ class AnimalRacaController extends DefaultController
         $compareParams = [
             "descricao" => $params["descricao"]
         ];
-        $raca = $this->animalRacaDAO->selectById($id);
-        $descricaoAtual = $raca["descricao"];
-        if($this->animalRacaDAO->compare($compareParams, "=", true, ["descricao" => $descricaoAtual])) {
+        $vacina = $this->vacinaDAO->selectById($id);
+        $descricaoAtual = $vacina["descricao"];
+        if($this->vacinaDAO->compare($compareParams, "=", true, ["descricao" => $descricaoAtual])) {
             $this->response([
                 "message" => "Já existem registros com esta descrição"
             ], HTTP_BAD_REQUEST);
         }
 
-        if($this->animalRacaDAO->update($params, ["id" => $id])) {
+        if($this->vacinaDAO->update($params, ["id" => $id])) {
             $this->response([
                 "message" => "Registro atualizado com sucesso!"
             ], HTTP_CREATED);
@@ -108,13 +110,13 @@ class AnimalRacaController extends DefaultController
     {
         $id = (int)$data["id"];
 
-        if (!$this->animalRacaDAO->compare(["id" => $id])) {
+        if (!$this->vacinaDAO->compare(["id" => $id])) {
             $this->response([
                 "message" => "Não existe registro com este ID"
             ], HTTP_NOT_FOUND);
         }
 
-        if ($this->animalRacaDAO->delete($id)) {
+        if ($this->vacinaDAO->delete($id)) {
             $this->response([
                 "message" => "Registro deletado com sucesso!"
             ], HTTP_CREATED);
@@ -130,13 +132,13 @@ class AnimalRacaController extends DefaultController
         $id = (int)$data["id"];
         $visibility = (int)$data["visibility"];
 
-        if (!$this->animalRacaDAO->compare(["id" => $id])) {
+        if (!$this->vacinaDAO->compare(["id" => $id])) {
             $this->response([
                 "message" => "Não existe registro com este ID"
             ], HTTP_NOT_FOUND);
         }
 
-        if ($this->animalRacaDAO->disable($id, $visibility)) {
+        if ($this->vacinaDAO->disable($id, $visibility)) {
             $this->response([
                 "message" => "Visibilidade do registro alterada com sucesso!"
             ], HTTP_CREATED);
