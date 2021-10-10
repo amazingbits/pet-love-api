@@ -95,6 +95,15 @@ $router->post("/save", "VacinacaoController:save");
 $router->put("/update/{id}", "VacinacaoController:update");
 $router->delete("/delete/{id}", "VacinacaoController:delete");
 
+// Exames
+$router->group("exame");
+$router->get("/{orderColumn}/{orderDirection}/{limit}/{offset}/{justActive}", "ExameController:all");
+$router->get("/{id}", "ExameController:getById");
+$router->get("/changeVisibility/{id}/{visibility}", "ExameController:changeVisibility");
+$router->post("/save", "ExameController:save");
+$router->put("/update/{id}", "ExameController:update");
+$router->delete("/delete/{id}", "ExameController:delete");
+
 $router->group("error");
 $router->get("/{status}", "ErrorController:index");
 

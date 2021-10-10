@@ -229,6 +229,8 @@ create table if not exists exames(
     notas text,
     file_path text not null,
     animal int not null,
+    criado_em datetime not null default now(),
+    ativo int not null default 1,
     constraint fk_exames_animal
     foreign key (animal) references animal (id)
 );
@@ -240,6 +242,8 @@ create table if not exists consultas(
     notas text,
     file_path text not null,
     animal int not null,
+    criado_em datetime not null default now(),
+    ativo int not null default 1,
     constraint fk_consultas_animal
     foreign key (animal) references animal (id)
 );
