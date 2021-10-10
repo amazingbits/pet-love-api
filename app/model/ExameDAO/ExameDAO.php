@@ -52,4 +52,28 @@ class ExameDAO extends BaseDAO implements iExameDAO
             ], HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
+    public function pegarExamePorIdAnimal(int $idAnimal): array
+    {
+        $sqlQuery = "SELECT exames.id AS id,
+                            exames.descricao AS descricao,
+                            DATE_FORMAT(exames.data, '%d/%m/%Y') AS data,
+                            exames.notas AS notas,
+                            exames.file_path AS file_path,
+                            animal.nome AS animal,
+                            exames.criado_em AS criado_em,
+                            exames.ativo AS ativo
+                     FROM exames 
+                     INNER JOIN animal ON (exames.animal = animal.id) 
+                     WHERE exames.animal = :idAnimal";
+        try {
+            $conn = Connection::getInstance();
+            $stmt = $conn->prepare($sqlQuery);
+            $stmt->bindValue(":idAnimal", $idAnimal);
+            $stmt->execute();
+            return $stmt->fetchAll();
+        } catch (\PDOException $e) {
+            return [];
+        }
+    }
 }

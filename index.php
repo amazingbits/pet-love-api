@@ -63,6 +63,8 @@ $router->group("animal");
 $router->get("/{orderColumn}/{orderDirection}/{limit}/{offset}/{justActive}", "AnimalController:all");
 $router->get("/{id}", "AnimalController:getById");
 $router->get("/changeVisibility/{id}/{visibility}", "AnimalController:changeVisibility");
+$router->get("/info/byuser/{idUser}", "AnimalController:getAnimalListByUserId");
+$router->get("/info/byanimal/{idAnimal}", "AnimalController:getAnimalListById");
 $router->post("/save", "AnimalController:save");
 $router->put("/update/{id}", "AnimalController:update");
 $router->delete("/delete/{id}", "AnimalController:delete");

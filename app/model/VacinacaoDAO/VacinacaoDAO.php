@@ -79,4 +79,26 @@ class VacinacaoDAO extends BaseDAO implements iVacinacaoDAO
         }
     }
 
+    public function retornarVacinacaoPorIdAnimal(int $idAnimal): array
+    {
+        $sqlQuery = "SELECT vacinacao.id AS id,
+                            animal.nome AS animal,
+                            vacina.descricao AS vacina,
+                            DATE_FORMAT(vacinacao.data_aplicacao, '%d/%m/%Y') AS data_aplicacao,
+                            vacinacao.criado_em AS criado_em,
+                            vacinacao.ativo AS ativo
+                     FROM vacinacao
+                     INNER JOIN animal ON (vacinacao.animal = animal.id) 
+                     INNER JOIN vacina ON (vacinacao.vacina = vacina.id) 
+                     WHERE vacinacao.animal = :idAnimal";
+        try {
+            $conn = Connection::getInstance();
+            $stmt = $conn->prepare($sqlQuery);
+            $stmt->bindValue(":idAnimal", $idAnimal);
+            $stmt->execute();
+            return $stmt->fetchAll();
+        } catch (\PDOException $e) {
+            return [];
+        }
+    }
 }

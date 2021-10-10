@@ -10,4 +10,6 @@ interface iVacinacaoDAO extends iBaseDAO
         int $idAnimal
     ): bool;
 
+    public function retornarVacinacaoPorIdAnimal(int $idAnimal);
+
 }

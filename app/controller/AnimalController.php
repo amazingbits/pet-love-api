@@ -168,4 +168,16 @@ class AnimalController extends DefaultController
             "message" => "Erro ao alterar visibilidade do registro!"
         ], HTTP_INTERNAL_SERVER_ERROR);
     }
+
+    public function getAnimalListByUserId($data)
+    {
+        $idUser = (int)$data["idUser"];
+        $this->response($this->animalDAO->retornarInformacoesCompletasDoAnimalPorIdUsuario($idUser));
+    }
+
+    public function getAnimalListById($data)
+    {
+        $idAnimal = (int)$data["idAnimal"];
+        $this->response($this->animalDAO->retornarInformacoesCompletasDoAnimalPorIdAnimal($idAnimal));
+    }
 }
