@@ -9,4 +9,6 @@ interface iAgendaDAO extends iBaseDAO
     public function verificarChoqueDeHorario(int $diaSemana, string $horaInicial, string $horaFinal, int $idUsuario): bool;
 
     public function listarAgendasPorIdUsuario(int $idUsuario, bool $active = true): array;
+
+    public function listarDatasDeAtendimentoPorMes(string $data, int $idAgenda): array;
 }

@@ -232,4 +232,11 @@ class AgendaController extends DefaultController
             "message" => "Erro ao alterar visibilidade do registro!"
         ], HTTP_INTERNAL_SERVER_ERROR);
     }
+
+    public function listAppointmentByMonth($data)
+    {
+        $month = $data["date"];
+        $idAgenda = (int)$data["id"];
+        echo json_encode($this->agendaDAO->listarDatasDeAtendimentoPorMes($month, $idAgenda));
+    }
 }

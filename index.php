@@ -121,6 +121,7 @@ $router->get("/{orderColumn}/{orderDirection}/{limit}/{offset}/{justActive}", "A
 $router->get("/{id}", "AgendaController:getById");
 $router->get("/byuser/{id}/{active}", "AgendaController:getByUser");
 $router->get("/changeVisibility/{id}/{visibility}", "AgendaController:changeVisibility");
+$router->get("/appointments/{date}/{id}", "AgendaController:listAppointmentByMonth");
 $router->post("/save", "AgendaController:save");
 $router->put("/update/{id}", "AgendaController:update");
 $router->delete("/delete/{id}", "AgendaController:delete");
@@ -133,6 +134,13 @@ $router->get("/changeVisibility/{id}/{visibility}", "BloqueioController:changeVi
 $router->post("/save", "BloqueioController:save");
 $router->put("/update/{id}", "BloqueioController:update");
 $router->delete("/delete/{id}", "BloqueioController:delete");
+
+// Agenda Item
+$router->group("agendaitem");
+$router->get("/{id}", "AgendaItemController:getById");
+$router->get("/byuser/{id}/{date}", "AgendaItemController:getByUser");
+$router->post("/save", "AgendaItemController:save");
+$router->delete("/delete/{id}", "AgendaItemController:delete");
 
 $router->group("error");
 $router->get("/{status}", "ErrorController:index");
