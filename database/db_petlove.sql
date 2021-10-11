@@ -256,6 +256,8 @@ create table if not exists avaliacao(
     usuario int not null,
     nota int not null,
     descricao text not null,
+    criado_em datetime not null default now(),
+    ativo int not null default 1,
     constraint fk_avaliacao_empresa
     foreign key (empresa) references usuario (id),
     constraint fk_avalicao_usuario

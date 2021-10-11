@@ -142,6 +142,16 @@ $router->get("/byuser/{id}/{date}", "AgendaItemController:getByUser");
 $router->post("/save", "AgendaItemController:save");
 $router->delete("/delete/{id}", "AgendaItemController:delete");
 
+// Avaliação
+$router->group("avaliacao");
+$router->get("/", "AvaliacaoController:all");
+$router->get("/{id}", "AvaliacaoController:getById");
+$router->get("/byuser/{id}", "AvaliacaoController:getByUser");
+$router->get("/changeVisibility/{id}/{visibility}", "AvaliacaoController:changeVisibility");
+$router->post("/save", "AvaliacaoController:save");
+$router->put("/update/{id}", "AvaliacaoController:update");
+$router->delete("/delete/{id}", "AvaliacaoController:delete");
+
 $router->group("error");
 $router->get("/{status}", "ErrorController:index");
 
