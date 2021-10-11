@@ -167,7 +167,7 @@ class BaseDAO implements iBaseDAO
             if($c === 0) {
                 $sqlQuery .= " WHERE (";
             } else {
-                $sqlQuery .= " OR ";
+                $sqlQuery .= " AND ";
             }
             $sqlQuery .= " {$key} {$compareType} :{$key}";
             $c++;

@@ -152,6 +152,12 @@ $router->post("/save", "AvaliacaoController:save");
 $router->put("/update/{id}", "AvaliacaoController:update");
 $router->delete("/delete/{id}", "AvaliacaoController:delete");
 
+// Auth
+$router->group("auth");
+$router->post("/login", "AuthController:login");
+$router->get("/islogged", "AuthController:isLogged");
+$router->get("/logout", "AuthController:logout");
+
 $router->group("error");
 $router->get("/{status}", "ErrorController:index");
 
