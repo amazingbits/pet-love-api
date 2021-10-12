@@ -207,4 +207,21 @@ class BaseDAO implements iBaseDAO
     {
         return $this->table;
     }
+
+    public function getLastId(): int
+    {
+    $sqlQuery = "SELECT id FROM {$this->table} ORDER BY ID DESC LIMIT 1";
+        try {
+            $conn = Connection::getInstance();
+            $stmt = $conn->prepare($sqlQuery);
+            $stmt->execute();
+            if($stmt->rowCount() > 0) {
+                return (int)$stmt->fetchAll()[0]["id"];
+            } else {
+                return 0;
+            }
+        } catch (\PDOException $e) {
+            return 0;
+        }
+    }
 }

@@ -23,4 +23,6 @@ interface iBaseDAO
     public function disable(int $id, int $status): bool;
 
     public function compare(array $params, string $compareType, bool $removeItem, array $itemsToRemove): bool;
+
+    public function getLastId(): int;
 }

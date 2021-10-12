@@ -71,7 +71,8 @@ class UsuarioController extends DefaultController
 
         if($this->usuarioDAO->insert($params)) {
             $this->response([
-                "message" => "Registro inserido com sucesso!"
+                "message" => "Registro inserido com sucesso!",
+                "id" => $this->usuarioDAO->getLastId()
             ], HTTP_CREATED);
         }
         $this->response([
