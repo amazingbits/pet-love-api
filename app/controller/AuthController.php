@@ -48,7 +48,8 @@ class AuthController extends DefaultController
             setcookie("hash", $jwtHash, (time() + (10 * 24 * 3600))); // 10 dias
 
             $this->response([
-                "message" => "Logado com sucesso!"
+                "message" => "Logado com sucesso!",
+                "hash" => $jwtHash
             ]);
         }
         $this->response([
