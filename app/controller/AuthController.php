@@ -24,7 +24,7 @@ class AuthController extends DefaultController
     {
         $params = $this->params->getJsonParams();
         $needle = [
-            "login" => "string",
+            "email" => "string",
             "senha" => "string"
         ];
         if(!$this->params->validateParams($params, $needle)) {
@@ -33,11 +33,11 @@ class AuthController extends DefaultController
             ], HTTP_BAD_REQUEST);
         }
 
-        $login = filter_var(trim($params["login"]), FILTER_SANITIZE_STRING);
+        $email = filter_var(trim($params["email"]), FILTER_SANITIZE_STRING);
         $senha = trim($params["senha"]);
 
         $params = [
-            "login" => $login,
+            "email" => $email,
             "senha" => md5($senha)
         ];
         if($this->usuarioDAO->compare($params)) {
@@ -54,7 +54,7 @@ class AuthController extends DefaultController
         }
         $this->response([
             "Usuário e/ou senha não encontrados!"
-        ], HTTP_INTERNAL_SERVER_ERROR);
+        ], HTTP_NOT_FOUND);
     }
 
     public function isLogged()

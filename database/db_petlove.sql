@@ -23,7 +23,6 @@ insert into tipo_animal (descricao) values ("Cachorro");
 
 create table if not exists usuario(
 	id int not null auto_increment primary key,
-    login text not null,
     senha text not null,
     nome text not null,
     email text not null,
@@ -37,7 +36,7 @@ create table if not exists usuario(
     foreign key (tipo_usuario) references tipo_usuario (id)
 );
 
-insert into usuario (login, senha, nome, email, telefone, path_url, tipo_usuario) values ("admin", "21232f297a57a5a743894a0e4a801fc3", "Guilherme Andrade", "gui-keanne@hotmail.com", "48998149069", "path_to_img", 1);
+insert into usuario (senha, nome, email, telefone, path_url, tipo_usuario) values ("21232f297a57a5a743894a0e4a801fc3", "Guilherme Andrade", "gui-keanne@hotmail.com", "48998149069", "path_to_img", 1);
 
 create table if not exists animal_comportamento(
 	id int not null auto_increment primary key,

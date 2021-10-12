@@ -37,9 +37,8 @@ class UsuarioController extends DefaultController
     {
         $params = $this->params->getJsonParams();
         $needle = [
-            "login" => "string",
-            "senha" => "string",
             "nome" => "string",
+            "senha" => "string",
             "email" => "string",
             "telefone" => "string",
             "path_url" => "string",
@@ -60,12 +59,11 @@ class UsuarioController extends DefaultController
         }
 
         $compareParams = [
-            "email" => $params["email"],
-            "login" => $params["login"]
+            "email" => $params["email"]
         ];
         if($this->usuarioDAO->compare($compareParams)) {
             $this->response([
-                "message" => "Já existem usuários com este login ou email"
+                "message" => "Já existem usuários com este email"
             ], HTTP_BAD_REQUEST);
         }
 
@@ -85,7 +83,6 @@ class UsuarioController extends DefaultController
         $id = (int)$data["id"];
         $params = $this->params->getJsonParams();
         $needle = [
-            "login" => "string",
             "nome" => "string",
             "email" => "string",
             "telefone" => "string",
@@ -105,15 +102,13 @@ class UsuarioController extends DefaultController
         }
 
         $compareParams = [
-            "email" => $params["email"],
-            "login" => $params["login"]
+            "email" => $params["email"]
         ];
         $usuario = $this->usuarioDAO->selectById($id);
-        $loginAtual = $usuario["login"];
         $emailAtual = $usuario["email"];
-        if($this->usuarioDAO->compare($compareParams, "=", true, ["login" => $loginAtual, "email" => $emailAtual])) {
+        if($this->usuarioDAO->compare($compareParams, "=", true, ["email" => $emailAtual])) {
             $this->response([
-                "message" => "Já existem usuários com este login ou email"
+                "message" => "Já existem usuários com este email"
             ], HTTP_BAD_REQUEST);
         }
 
