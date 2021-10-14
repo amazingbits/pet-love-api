@@ -2,6 +2,7 @@
 
 namespace App\Model\UsuarioDAO;
 
+use App\Core\Connection;
 use App\Model\AnimalDAO\AnimalDAO;
 use App\Model\BaseDAO\BaseDAO;
 use App\Model\EnderecoDAO\EnderecoDAO;
@@ -38,5 +39,20 @@ class UsuarioDAO extends BaseDAO implements iUsuarioDAO
             array_push($res, $curr);
         }
         return $res;
+    }
+
+    public function getByEmail(string $email): array
+    {
+        $sqlQuery = "SELECT * FROM usuario WHERE email = :email";
+        try {
+            $conn = Connection::getInstance();
+            $stmt = $conn->prepare($sqlQuery);
+            $stmt->bindValue(":email", $email);
+            $stmt->execute();
+            if($stmt->rowCount() > 0) return $stmt->fetch();
+            return [];
+        } catch (\PDOException $e) {
+            return [];
+        }
     }
 }

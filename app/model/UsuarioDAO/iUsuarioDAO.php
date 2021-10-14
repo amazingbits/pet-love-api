@@ -13,4 +13,6 @@ interface iUsuarioDAO extends iBaseDAO
         int $offset = 0,
         bool $getJustActiveElements = true
     );
+
+    public function getByEmail(string $email): array;
 }
