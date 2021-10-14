@@ -1,5 +1,7 @@
 <?php
 
+ini_set('session.cookie_samesite', 'None');
+@session_start();
 date_default_timezone_set("America/Sao_Paulo");
 
 require_once "./config.php";

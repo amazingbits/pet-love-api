@@ -42,8 +42,11 @@ class AuthController extends DefaultController
         ];
         if($this->usuarioDAO->compare($params)) {
 
-            $this->jwt->setPayload($params);
+            $user = $this->usuarioDAO->getByEmail($email);
+            $this->jwt->setPayload($user);
             $jwtHash = $this->jwt->generateJWT();
+
+            setcookie("hash", $jwtHash, (time() + (10 * 24 * 3600)), "/");
 
             $this->response([
                 "message" => "Logado com sucesso!",
@@ -62,6 +65,22 @@ class AuthController extends DefaultController
                 "message" => "Você precisa estar logado para este processo!"
             ], HTTP_UNAUTHORIZED);
         }
+
+        $hash = $_COOKIE["hash"];
+        $objUser = $this->jwt->decryptJWT($hash);
+        $objStructure = ["id", "nome", "email", "telefone"];
+        foreach($objStructure as $val) {
+            if(!array_key_exists($val, (array)$objUser)) {
+                $this->response([
+                    "message" => "Estrutura do token inválida!"
+                ], HTTP_UNAUTHORIZED);
+            }
+        }
+
+        $this->response([
+            "message" => "Autenticação está ok!"
+        ]);
+
     }
 
     public function logout()
