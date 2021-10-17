@@ -18,6 +18,7 @@
     "ext-mbstring": "*",
     "ext-pdo": "*",
     "phpunit/phpunit": "^9.5",
-    "firebase/php-jwt": "^5.4"
+    "firebase/php-jwt": "^5.4",
+    "phpmailer/phpmailer": "^6.5"
   }
 }

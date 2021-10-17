@@ -55,4 +55,18 @@ class UsuarioDAO extends BaseDAO implements iUsuarioDAO
             return [];
         }
     }
+
+    public function changePassword(int $id, string $password): bool
+    {
+        $sqlQuery = "UPDATE usuario SET senha = :password WHERE id = :id";
+        try {
+            $conn = Connection::getInstance();
+            $stmt = $conn->prepare($sqlQuery);
+            $stmt->bindValue(":password", $password);
+            $stmt->bindValue(":id", $id);
+            return $stmt->execute();
+        } catch (\PDOException $e) {
+            return false;
+        }
+    }
 }

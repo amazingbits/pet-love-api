@@ -160,6 +160,12 @@ $router->post("/login", "AuthController:login");
 $router->get("/islogged", "AuthController:isLogged");
 $router->get("/logout", "AuthController:logout");
 
+// Esqueci a senha
+$router->group("forgotpassword");
+$router->get("/{email}", "ForgotPasswordController:forgotPassword");
+$router->get("/verify/{idUser}/{code}", "ForgotPasswordController:verifyCookie");
+$router->post("/changepassword", "ForgotPasswordController:changePassword");
+
 $router->group("error");
 $router->get("/{status}", "ErrorController:index");
 
