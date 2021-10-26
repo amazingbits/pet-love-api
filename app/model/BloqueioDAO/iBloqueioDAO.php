@@ -7,4 +7,6 @@ use App\Model\BaseDAO\iBaseDAO;
 interface iBloqueioDAO extends iBaseDAO
 {
     public function verificarSeHaBloqueioNaDataEspecificada(int $idAgenda, string $data);
+
+    public function carregarMeusBloqueios(int $idUser): array;
 }

@@ -160,7 +160,7 @@ create table if not exists agenda(
     hora_inicio time not null,
     hora_fim time not null,
     intervalo_atendimento int not null,
-    preco numeric(8,2) not null,
+    preco numeric(8,2) not null default 0,
     criado_em datetime not null default now(),
     ativo boolean not null default true,
     usuario int not null,
@@ -185,12 +185,15 @@ create table if not exists bloqueio(
 	id int not null auto_increment primary key,
     descricao text not null,
     agenda int not null,
+    usuario int not null,
     data_inicial date not null,
     data_final date not null,
     criado_em datetime not null default now(),
     ativo int not null default 1,
     constraint fk_bloqueio_agenda
-    foreign key (agenda) references agenda (id)
+    foreign key (agenda) references agenda (id),
+    constraint fk_bloqueio_usuario
+    foreign key (usuario) references usuario (id)
 );
 
 create table if not exists vacina(

@@ -56,7 +56,6 @@ class AgendaController extends DefaultController
             "hora_inicio" => "string",
             "hora_fim" => "string",
             "intervalo_atendimento" => "integer",
-            "preco" => "double",
             "usuario" => "integer"
         ];
         if(!$this->params->validateParams($params, $needle)) {
@@ -122,7 +121,6 @@ class AgendaController extends DefaultController
             "hora_inicio" => "string",
             "hora_fim" => "string",
             "intervalo_atendimento" => "integer",
-            "preco" => "double",
             "usuario" => "integer"
         ];
         if(!$this->params->validateParams($params, $needle)) {
@@ -238,5 +236,12 @@ class AgendaController extends DefaultController
         $month = $data["date"];
         $idAgenda = (int)$data["id"];
         echo json_encode($this->agendaDAO->listarDatasDeAtendimentoPorMes($month, $idAgenda));
+    }
+
+    public function getMyAppointments(array $data)
+    {
+        $id = (int)$data["userId"];
+        $agendas = $this->agendaDAO->listarAgendasPorIdUsuario($id, false);
+        $this->response($agendas);
     }
 }

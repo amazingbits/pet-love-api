@@ -81,9 +81,9 @@ class DateHelper
 
     public function isTime(string $time): bool
     {
-        if(mb_strlen($time) !== 5) return false;
+        if(mb_strlen($time) !== 5 && mb_strlen($time) !== 8) return false;
         $time = explode(":", $time);
-        if(count($time) !== 2) return false;
+        if(count($time) !== 2 && count($time) !== 3) return false;
         $hour = (int)$time[0];
         $minutes = (int)$time[1];
         if($hour < 0 || $hour > 23) return false;

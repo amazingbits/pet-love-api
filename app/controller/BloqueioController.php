@@ -40,6 +40,7 @@ class BloqueioController extends DefaultController
         $needle = [
             "descricao" => "string",
             "agenda" => "integer",
+            "usuario" => "integer",
             "data_inicial" => "string",
             "data_final" => "string"
         ];
@@ -84,6 +85,7 @@ class BloqueioController extends DefaultController
         $needle = [
             "descricao" => "string",
             "agenda" => "integer",
+            "usuario" => "integer",
             "data_inicial" => "string",
             "data_final" => "string"
         ];
@@ -162,5 +164,12 @@ class BloqueioController extends DefaultController
         $this->response([
             "message" => "Erro ao alterar visibilidade do registro!"
         ], HTTP_INTERNAL_SERVER_ERROR);
+    }
+
+    public function meusBloqueios(array $data)
+    {
+        $idUser = (int)$data["idUser"];
+        $bloqueios = $this->bloqueioDAO->carregarMeusBloqueios($idUser);
+        $this->response($bloqueios);
     }
 }
