@@ -122,6 +122,31 @@ class UsuarioController extends DefaultController
         ], HTTP_INTERNAL_SERVER_ERROR);
     }
 
+    public function updatePassword($data)
+    {
+        $userId = (int)$data["userId"];
+
+        $params = $this->params->getJsonParams();
+        $needle = [
+            "senha" => "string"
+        ];
+        if(!$this->params->validateParams($params, $needle)) {
+            $this->response([
+                "message" => "Parâmetros insuficientes ou tipos de parâmetros inválidos!"
+            ], HTTP_BAD_REQUEST);
+        }
+
+        $senha = md5($params["senha"]);
+        if($this->usuarioDAO->changePassword($userId, $senha)) {
+            $this->response([
+                "message" => "Senha alterada com sucesso!"
+            ]);
+        }
+        $this->response([
+            "message" => "Houve um problema para alterar a senha do usuário!"
+        ], HTTP_INTERNAL_SERVER_ERROR);
+    }
+
     public function delete($data = [])
     {
         $id = (int)$data["id"];

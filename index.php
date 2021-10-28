@@ -39,6 +39,7 @@ $router->get("/{orderColumn}/{orderDirection}/{limit}/{offset}/{justActive}", "U
 $router->get("/{id}", "UsuarioController:getById");
 $router->get("/changeVisibility/{id}/{visibility}", "UsuarioController:changeVisibility");
 $router->post("/save", "UsuarioController:save");
+$router->put("/updatepassword/{userId}", "UsuarioController:updatePassword");
 $router->put("/update/{id}", "UsuarioController:update");
 $router->delete("/delete/{id}", "UsuarioController:delete");
 
