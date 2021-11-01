@@ -150,6 +150,7 @@ $router->post("/save", "AgendaItemController:save");
 $router->put("/update/{id}", "AgendaItemController:update");
 $router->delete("/delete/{id}", "AgendaItemController:delete");
 $router->get("/minhaagenda/{data}/{idAgenda}", "AgendaItemController:minhaAgenda");
+$router->get("/agendaproximosdias/{idUsuario}", "AgendaItemController:agendaParaOsProximosDias");
 
 // Avaliação
 $router->group("avaliacao");

@@ -149,4 +149,10 @@ class AgendaItemController extends DefaultController
         $idAgenda = (int)$data["idAgenda"];
         $this->response($this->agendaItemDAO->pegarAgendaPorDataEId($idAgenda, $dt));
     }
+
+    public function agendaParaOsProximosDias($data)
+    {
+        $idUsuario = (int)$data["idUsuario"];
+        $this->response($this->agendaItemDAO->agendaParaOsProximosDias($idUsuario));
+    }
 }

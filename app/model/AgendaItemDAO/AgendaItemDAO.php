@@ -159,4 +159,44 @@ class AgendaItemDAO extends BaseDAO implements iAgendaItemDAO
             return [];
         }
     }
+
+    public function agendaParaOsProximosDias(int $idUsuario): array
+    {
+        $sqlQuery = "
+            SELECT agenda_item.*,
+                   agenda.descricao AS descAgenda,
+                   agenda.dia_semana_ext AS diaSemana
+            FROM agenda_item
+            INNER JOIN agenda ON (agenda_item.agenda = agenda.id)
+            WHERE agenda_item.data >= :hoje AND agenda.usuario = :usuario
+            ORDER BY agenda_item.hora, agenda_item.data ASC
+            LIMIT 20
+        ";
+        $today = date("Y-m-d");
+        $dateHelper = new DateHelper();
+        try {
+            $conn = Connection::getInstance();
+            $stmt = $conn->prepare($sqlQuery);
+            $stmt->bindValue(":hoje", $today);
+            $stmt->bindValue(":usuario", $idUsuario);
+            $stmt->execute();
+            $res = [];
+            foreach($stmt->fetchAll() as $agenda) {
+                $curr = [
+                    "id" => (int)$agenda["id"],
+                    "agenda" => (int)$agenda["agenda"],
+                    "descricao" => $agenda["descricao"],
+                    "data" => date("d/m/Y", strtotime($agenda["data"])),
+                    "hora" => $agenda["hora"],
+                    "status" => $agenda["status"],
+                    "descAgenda" => $agenda["descAgenda"],
+                    "diaSemana" => $agenda["diaSemana"]
+                ];
+                array_push($res, $curr);
+            }
+            return $res;
+        } catch (\PDOException $e) {
+            return [];
+        }
+    }
 }
