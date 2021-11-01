@@ -11,4 +11,8 @@ interface iAgendaItemDAO extends iBaseDAO
     public function listarAtendimentosDoDiaPorIdAgenda(int $idAgenda, string $date): array;
 
     public function verificarSeHorarioEstaOcupado(int $idAgenda, string $data, string $hora): bool;
+
+    public function pegarAgendaPorDataEId(int $idAgenda, string $data): array;
+
+    public function agendaPorDataHoraId(int $idAgenda, string $data, string $hora): array;
 }

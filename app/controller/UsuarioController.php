@@ -189,4 +189,11 @@ class UsuarioController extends DefaultController
             "message" => "Erro ao alterar visibilidade do registro!"
         ], HTTP_INTERNAL_SERVER_ERROR);
     }
+
+    public function pesquisarEmpresasPorRaio($data)
+    {
+        $latitude = (float)$data["latitude"];
+        $longitude = (float)$data["longitude"];
+        $this->response($this->usuarioDAO->pesquisarEmpresasPorRaio($latitude, $longitude));
+    }
 }

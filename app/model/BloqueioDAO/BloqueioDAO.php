@@ -54,6 +54,7 @@ class BloqueioDAO extends BaseDAO implements iBloqueioDAO
                    bloqueio.usuario AS usuario,
                    bloqueio.agenda AS agenda,
                    agenda.descricao AS descAgenda,
+                   agenda.dia_semana_ext AS diaSemana,
                    usuario.nome AS descUsuario
             FROM bloqueio
             INNER JOIN agenda ON (bloqueio.agenda = agenda.id)  

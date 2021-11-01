@@ -244,4 +244,11 @@ class AgendaController extends DefaultController
         $agendas = $this->agendaDAO->listarAgendasPorIdUsuario($id, false);
         $this->response($agendas);
     }
+
+    public function findByDateAndId($data)
+    {
+        $dt = $data["data"];
+        $idAgenda = (int)$data["idAgenda"];
+        $this->response(["message" => "oopa"]);
+    }
 }

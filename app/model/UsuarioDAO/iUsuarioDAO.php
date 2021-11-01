@@ -17,4 +17,6 @@ interface iUsuarioDAO extends iBaseDAO
     public function getByEmail(string $email): array;
 
     public function changePassword(int $id, string $password): bool;
+
+    public function pesquisarEmpresasPorRaio(float $latitude, float $longitude): array;
 }

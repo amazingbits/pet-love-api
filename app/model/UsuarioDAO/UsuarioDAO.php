@@ -69,4 +69,34 @@ class UsuarioDAO extends BaseDAO implements iUsuarioDAO
             return false;
         }
     }
+
+    public function pesquisarEmpresasPorRaio(float $latitude, float $longitude): array
+    {
+        $sqlQuery = "
+            SELECT 	endereco.*,
+                    usuario.*,
+                    (6371 *
+                    acos(
+                        cos(radians(:latitude)) *
+                        cos(radians(latitude)) *
+                        cos(radians(:longitude) - radians(longitude)) +
+                        sin(radians(:latitude)) *
+                        sin(radians(latitude))
+                    )) AS raio
+            FROM endereco
+            INNER JOIN usuario ON
+            (endereco.usuario = usuario.id)
+            HAVING raio <= 5;
+        ";
+        try {
+            $conn = Connection::getInstance();
+            $stmt = $conn->prepare($sqlQuery);
+            $stmt->bindValue(":latitude", $latitude);
+            $stmt->bindValue(":longitude", $longitude);
+            $stmt->execute();
+            return $stmt->fetchAll();
+        } catch (\PDOException $e) {
+            return [];
+        }
+    }
 }

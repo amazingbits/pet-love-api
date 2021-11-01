@@ -47,7 +47,7 @@ class AgendaItemController extends DefaultController
         $params = $this->params->getJsonParams();
         $needle = [
             "agenda" => "integer",
-            "animal" => "integer",
+            "descricao" => "string",
             "data" => "string",
             "hora" => "string",
             "status" => "string"
@@ -61,12 +61,6 @@ class AgendaItemController extends DefaultController
         if(empty($this->agendaDAO->selectById((int)$params["agenda"]))) {
             $this->response([
                 "message" => "Agenda inexistente!"
-            ], HTTP_BAD_REQUEST);
-        }
-
-        if(empty($this->animalDAO->selectById((int)$params["animal"]))) {
-            $this->response([
-                "message" => "Animal inexistente!"
             ], HTTP_BAD_REQUEST);
         }
 
@@ -104,6 +98,30 @@ class AgendaItemController extends DefaultController
         ], HTTP_INTERNAL_SERVER_ERROR);
     }
 
+    public function update($data)
+    {
+        $id = (int)$data["id"];
+        $params = $this->params->getJsonParams();
+        $needle = [
+            "descricao" => "string",
+            "status" => "string"
+        ];
+        if(!$this->params->validateParams($params, $needle)) {
+            $this->response([
+                "message" => "Parâmetros insuficientes ou tipos de parâmetros inválidos!"
+            ], HTTP_BAD_REQUEST);
+        }
+
+        if($this->agendaItemDAO->update($params, ["id" => $id])) {
+            $this->response([
+                "message" => "Registro alterado com sucesso!"
+            ], HTTP_CREATED);
+        }
+        $this->response([
+            "message" => "Erro ao alterar o registro!"
+        ], HTTP_INTERNAL_SERVER_ERROR);
+    }
+
     public function delete($data = [])
     {
         $id = (int)$data["id"];
@@ -123,5 +141,12 @@ class AgendaItemController extends DefaultController
         $this->response([
             "message" => "Erro ao deletar registro!"
         ], HTTP_INTERNAL_SERVER_ERROR);
+    }
+
+    public function minhaAgenda($data)
+    {
+        $dt = trim($data["data"]);
+        $idAgenda = (int)$data["idAgenda"];
+        $this->response($this->agendaItemDAO->pegarAgendaPorDataEId($idAgenda, $dt));
     }
 }

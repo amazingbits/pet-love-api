@@ -36,7 +36,7 @@ create table if not exists usuario(
     foreign key (tipo_usuario) references tipo_usuario (id)
 );
 
-insert into usuario (senha, nome, email, telefone, path_url, tipo_usuario) values ("21232f297a57a5a743894a0e4a801fc3", "Guilherme Andrade", "gui-keanne@hotmail.com", "48998149069", "path_to_img", 1);
+insert into usuario (senha, nome, email, telefone, path_url, tipo_usuario) values ("21232f297a57a5a743894a0e4a801fc3", "Guilherme Andrade", "gui-keanne@hotmail.com", "48998149069", "courage.png", 1);
 
 create table if not exists animal_comportamento(
 	id int not null auto_increment primary key,
@@ -171,14 +171,12 @@ create table if not exists agenda(
 create table if not exists agenda_item(
 	id int not null auto_increment primary key,
     agenda int not null,
-    animal int not null,
+    descricao text,
     data date not null,
     hora time not null,
     status enum("Marcada", "Confirmada", "Cancelada"),
-    constraint fk_ai_agenda
-    foreign key (agenda) references agenda (id),
-    constraint fk_agenda_item_animal
-    foreign key (animal) references animal (id)
+    constraint fk_item_agenda
+    foreign key (agenda) references agenda (id)
 );
 
 create table if not exists bloqueio(
@@ -265,3 +263,57 @@ create table if not exists avaliacao(
     constraint fk_avalicao_usuario
     foreign key (usuario) references usuario (id)
 );
+
+/* SEEDS */
+
+-- Empresas
+
+-- Clínica veterinária 3 irmãos
+insert into usuario (senha, nome, email, telefone, path_url, tipo_usuario) values ("e10adc3949ba59abbe56e057f20f883e", "Clínica Veterinária 3 Irmãos", "tresirmaos@email.com", "4833223390", "3-irmaos.png", 2);
+insert into endereco(cep, rua, numero, complemento, cidade, estado, latitude, longitude, usuario) values ("88015160", "Rua Luís Delfino", "34", "", "Florianópolis", "SC", "-48.5490324", "-27.5889147", 2);
+
+-- Puro encanto pet center
+insert into usuario (senha, nome, email, telefone, path_url, tipo_usuario) values ("e10adc3949ba59abbe56e057f20f883e", "Puro Encanto Pet Shop", "puroencanto@email.com", "48999313382", "puro-encanto-pet-center.png", 2);
+insert into endereco(cep, rua, numero, complemento, cidade, estado, latitude, longitude, usuario) values ("88037010", "Rua Joe Collaço", "270", "", "Florianópolis", "SC", "-48.5150899", "-27.5983681", 3);
+
+-- Pet Shop Patas e Raizes
+insert into usuario (senha, nome, email, telefone, path_url, tipo_usuario) values ("e10adc3949ba59abbe56e057f20f883e", "Patas e Raízes", "patas@email.com", "4832286406", "patas-e-raizes.png", 2);
+insert into endereco(cep, rua, numero, complemento, cidade, estado, latitude, longitude, usuario) values ("88020000", "Avenida Hercílio Luz", "853", "", "Florianópolis", "SC", "-48.5483593", "-27.5963383", 4);
+
+-- Pet Family
+insert into usuario (senha, nome, email, telefone, path_url, tipo_usuario) values ("e10adc3949ba59abbe56e057f20f883e", "Pet Family", "pet-family@email.com", "4832234518", "pet-family.png", 2);
+insert into endereco(cep, rua, numero, complemento, cidade, estado, latitude, longitude, usuario) values ("88020020", "Rua Herman Blumenau", "71", "", "Florianópolis", "SC", "-48.5479768", "-27.5939949", 5);
+
+-- Dog walker Marcos Oliveira
+insert into usuario (senha, nome, email, telefone, path_url, tipo_usuario) values ("e10adc3949ba59abbe56e057f20f883e", "Marcos Oliveira", "marcos-oliveira@email.com", "48998149069", "marcos-oliveira.jpg", 2);
+insert into endereco(cep, rua, numero, complemento, cidade, estado, latitude, longitude, usuario) values ("88036135", "Rua Europa", "200", "", "Florianópolis", "SC", "-48.5289028", "-27.585531", 6);
+
+-- Agendas
+
+-- Agendas 3 irmãos 2
+-- Banho e Tosa - Segunda-feira - 10:00 - 14:00
+insert into agenda (descricao, dia_semana, dia_semana_ext, hora_inicio, hora_fim, intervalo_atendimento, usuario) values ("Banho e tosa", 1, "Segunda", "10:00", "14:00", 30, 2);
+-- Banho e Tosa - Quarta-feira - 10:00 - 14:00
+insert into agenda (descricao, dia_semana, dia_semana_ext, hora_inicio, hora_fim, intervalo_atendimento, usuario) values ("Banho e tosa", 3, "Quarta", "10:00", "14:00", 30, 2);
+
+-- Agendas puro encanto
+-- Castração - Segunda-feira - 08:00 - 18:00
+insert into agenda (descricao, dia_semana, dia_semana_ext, hora_inicio, hora_fim, intervalo_atendimento, usuario) values ("Castração", 1, "Segunda", "08:00", "18:00", 30, 3);
+-- Banho e tosa - Segunda-feira - 08:00 - 12:00
+insert into agenda (descricao, dia_semana, dia_semana_ext, hora_inicio, hora_fim, intervalo_atendimento, usuario) values ("Banho", 1, "Segunda", "08:00", "12:00", 30, 3);
+-- Castração - Sexta-feira - 08:00 - 16:00
+insert into agenda (descricao, dia_semana, dia_semana_ext, hora_inicio, hora_fim, intervalo_atendimento, usuario) values ("Castração", 5, "Sexta", "08:00", "16:00", 30, 3);
+-- Banho e Tosa - Sexta-feira - 08:00 - 12:00
+insert into agenda (descricao, dia_semana, dia_semana_ext, hora_inicio, hora_fim, intervalo_atendimento, usuario) values ("Banho", 5, "Sexta", "08:00", "12:00", 30, 3);
+
+-- Agendas Marcos Oliveira
+-- Passeio - Segunda-feira - 08:00 - 18:00
+insert into agenda (descricao, dia_semana, dia_semana_ext, hora_inicio, hora_fim, intervalo_atendimento, usuario) values ("Passeio", 1, "Segunda", "08:00", "18:00", 30, 6);
+-- Passeio - Terça-feira - 08:00 - 18:00
+insert into agenda (descricao, dia_semana, dia_semana_ext, hora_inicio, hora_fim, intervalo_atendimento, usuario) values ("Passeio", 2, "Terça", "08:00", "18:00", 30, 6);
+-- Passeio - Quarta-feira - 08:00 - 18:00
+insert into agenda (descricao, dia_semana, dia_semana_ext, hora_inicio, hora_fim, intervalo_atendimento, usuario) values ("Passeio", 3, "Quarta", "08:00", "18:00", 30, 6);
+-- Passeio - Quinta-feira - 08:00 - 18:00
+insert into agenda (descricao, dia_semana, dia_semana_ext, hora_inicio, hora_fim, intervalo_atendimento, usuario) values ("Passeio", 4, "Quinta", "08:00", "18:00", 30, 6);
+-- Passeio - Sexta-feira - 08:00 - 18:00
+insert into agenda (descricao, dia_semana, dia_semana_ext, hora_inicio, hora_fim, intervalo_atendimento, usuario) values ("Passeio", 5, "Sexta", "08:00", "18:00", 30, 6);

@@ -42,6 +42,7 @@ $router->post("/save", "UsuarioController:save");
 $router->put("/updatepassword/{userId}", "UsuarioController:updatePassword");
 $router->put("/update/{id}", "UsuarioController:update");
 $router->delete("/delete/{id}", "UsuarioController:delete");
+$router->get("/pesquisarempresas/raio/{latitude}/{longitude}", "UsuarioController:pesquisarEmpresasPorRaio");
 
 // Animal comportamento
 $router->group("animalcomportamento");
@@ -129,6 +130,7 @@ $router->get("/myappointments/{userId}", "AgendaController:getMyAppointments");
 $router->post("/save", "AgendaController:save");
 $router->put("/update/{id}", "AgendaController:update");
 $router->delete("/delete/{id}", "AgendaController:delete");
+$router->get("/find/{data}/{idAgenda}", "AgendaController:findByDateAndId");
 
 // Bloqueio
 $router->group("bloqueio");
@@ -145,7 +147,9 @@ $router->group("agendaitem");
 $router->get("/{id}", "AgendaItemController:getById");
 $router->get("/byuser/{id}/{date}", "AgendaItemController:getByUser");
 $router->post("/save", "AgendaItemController:save");
+$router->put("/update/{id}", "AgendaItemController:update");
 $router->delete("/delete/{id}", "AgendaItemController:delete");
+$router->get("/minhaagenda/{data}/{idAgenda}", "AgendaItemController:minhaAgenda");
 
 // Avaliação
 $router->group("avaliacao");

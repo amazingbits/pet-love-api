@@ -93,4 +93,10 @@ class AgendaDAO extends BaseDAO implements iAgendaDAO
 
         return $horarios;
     }
+
+    public function findByDateAndId(string $date, int $scheduleId): array
+    {
+        $agenda = $this->selectById($scheduleId);
+        if(empty($agenda)) return [];
+    }
 }

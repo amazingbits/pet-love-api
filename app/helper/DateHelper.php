@@ -23,6 +23,12 @@ class DateHelper
         return date("Y-m-d", strtotime($date . " + {$days} days"));
     }
 
+    public function addMinutesToTime(string $time, int $minutes): string|bool
+    {
+        if (!$this->isTime($time)) return false;
+        return date("H:i:s", strtotime($time . " + {$minutes} minutes"));
+    }
+
     public function isBigger(string $dateOne, string $dateTwo): bool
     {
         if(!$this->isSqlDate($dateOne) || !$this->isSqlDate($dateTwo)) return false;

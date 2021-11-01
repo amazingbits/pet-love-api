@@ -11,4 +11,6 @@ interface iAgendaDAO extends iBaseDAO
     public function listarAgendasPorIdUsuario(int $idUsuario, bool $active = true): array;
 
     public function listarDatasDeAtendimentoPorMes(string $data, int $idAgenda): array;
+
+    public function findByDateAndId(string $date, int $scheduleId): array;
 }
