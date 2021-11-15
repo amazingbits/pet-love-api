@@ -196,4 +196,70 @@ class UsuarioController extends DefaultController
         $longitude = (float)$data["longitude"];
         $this->response($this->usuarioDAO->pesquisarEmpresasPorRaio($latitude, $longitude));
     }
+
+    public function findCompaniesByName($data)
+    {
+        $name = trim($data["name"]);
+        $this->response($this->usuarioDAO->findCompaniesByName($name));
+    }
+
+    public function findCompanies()
+    {
+        $this->response($this->usuarioDAO->findCompaniesByName(""));
+    }
+
+    public function newUserByApp()
+    {
+        $params = $this->params->getJsonParams();
+        $needle = [
+            "name" => "string",
+            "password" => "string",
+            "email" => "string",
+            "phone" => "string",
+            "path_url" => "string",
+            "user_type" => "integer"
+        ];
+        if(!$this->params->validateParams($params, $needle)) {
+            $this->response([
+                "message" => "Parâmetros insuficientes ou tipos de parâmetros inválidos!"
+            ], HTTP_BAD_REQUEST);
+        }
+
+        if(!filter_var($params["email"], FILTER_VALIDATE_EMAIL)) {
+            $this->response([
+                "message" => "Insira um e-mail válido!",
+                "status" => HTTP_BAD_REQUEST
+            ], HTTP_BAD_REQUEST);
+        }
+
+        if(!empty($this->usuarioDAO->getByEmail($params["email"]))) {
+            $this->response([
+                "message" => "Já existe um usuário com este e-mail!",
+                "status" => HTTP_BAD_REQUEST
+            ], HTTP_BAD_REQUEST);
+        }
+
+        $phone = preg_replace('/[^0-9]/', "", $params["phone"]);
+        $password = md5(trim($params["password"]));
+        $userParams = [
+            "name" => trim($params["name"]),
+            "email" => trim($params["email"]),
+            "phone" => $phone,
+            "path_url" => "",
+            "password" => $password,
+            "user_type" => 1
+        ];
+
+        if($this->usuarioDAO->newUserByApp($userParams)) {
+            $this->response([
+                "message" => "Usuário criado com sucesso!",
+                "status" => 201
+            ], HTTP_CREATED);
+        } else {
+            $this->response([
+                "message" => "Houve um problema ao criar o usuário!",
+                "status" => HTTP_INTERNAL_SERVER_ERROR
+            ], HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
 }

@@ -20,6 +20,34 @@ class AuthController extends DefaultController
         $this->usuarioDAO = new UsuarioDAO();
     }
 
+    public function loginByApp()
+    {
+        $params = $this->params->getJsonParams();
+        $needle = [
+            "email" => "string",
+            "senha" => "string"
+        ];
+        if(!$this->params->validateParams($params, $needle)) {
+            $this->response([
+                "message" => "Parâmetros insuficientes ou tipos de parâmetros inválidos!"
+            ], HTTP_BAD_REQUEST);
+        }
+
+        $email = filter_var(trim($params["email"]), FILTER_SANITIZE_STRING);
+        $senha = trim($params["senha"]);
+
+        $params = [
+            "email" => $email,
+            "senha" => md5($senha)
+        ];
+
+        if($this->usuarioDAO->compare($params)) {
+            $user = $this->usuarioDAO->getByEmail($email);
+            $this->response($user);
+        }
+        $this->response(["message" => "Nenhum usuário encontrado"], HTTP_NOT_FOUND);
+    }
+
     public function login()
     {
         $params = $this->params->getJsonParams();

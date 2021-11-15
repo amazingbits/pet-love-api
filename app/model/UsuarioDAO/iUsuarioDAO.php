@@ -19,4 +19,10 @@ interface iUsuarioDAO extends iBaseDAO
     public function changePassword(int $id, string $password): bool;
 
     public function pesquisarEmpresasPorRaio(float $latitude, float $longitude): array;
+
+    public function loginByApp(string $email, string $senha): array;
+
+    public function newUserByApp(array $newUserProps): bool;
+
+    public function findCompaniesByName(string $name): array;
 }

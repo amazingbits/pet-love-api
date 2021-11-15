@@ -132,6 +132,7 @@ create table if not exists animal(
 );
 
 insert into animal (sexo, nome, nascimento, animal_raca, animal_comportamento, tipo_animal, dono) values ("Fêmea", "Vivi", "2017-05-01", 48, 1, 1, 1);
+insert into animal (sexo, nome, nascimento, animal_raca, animal_comportamento, tipo_animal, dono) values ("Macho", "Doug", "2014-05-01", 48, 1, 1, 1);
 
 create table if not exists endereco(
 	id int not null auto_increment primary key,
@@ -224,7 +225,7 @@ create table if not exists vacinacao(
     foreign key (vacina) references vacina (id)
 );
 
-create table if not exists exames(
+create table if not exists documentos(
 	id int not null auto_increment primary key,
     descricao text not null,
     data date not null,
@@ -235,33 +236,6 @@ create table if not exists exames(
     ativo int not null default 1,
     constraint fk_exames_animal
     foreign key (animal) references animal (id)
-);
-
-create table if not exists consultas(
-	id int not null auto_increment primary key,
-    descricao text not null,
-    data date not null,
-    notas text,
-    file_path text not null,
-    animal int not null,
-    criado_em datetime not null default now(),
-    ativo int not null default 1,
-    constraint fk_consultas_animal
-    foreign key (animal) references animal (id)
-);
-
-create table if not exists avaliacao(
-	id int not null auto_increment primary key,
-    empresa int not null,
-    usuario int not null,
-    nota int not null,
-    descricao text not null,
-    criado_em datetime not null default now(),
-    ativo int not null default 1,
-    constraint fk_avaliacao_empresa
-    foreign key (empresa) references usuario (id),
-    constraint fk_avalicao_usuario
-    foreign key (usuario) references usuario (id)
 );
 
 /* SEEDS */

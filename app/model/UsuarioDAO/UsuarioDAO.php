@@ -86,7 +86,7 @@ class UsuarioDAO extends BaseDAO implements iUsuarioDAO
             FROM endereco
             INNER JOIN usuario ON
             (endereco.usuario = usuario.id)
-            HAVING raio <= 5;
+            HAVING raio <= 5 AND tipo_usuario = 2;
         ";
         try {
             $conn = Connection::getInstance();
@@ -94,7 +94,90 @@ class UsuarioDAO extends BaseDAO implements iUsuarioDAO
             $stmt->bindValue(":latitude", $latitude);
             $stmt->bindValue(":longitude", $longitude);
             $stmt->execute();
-            return $stmt->fetchAll();
+            $res = [];
+            foreach($stmt->fetchAll() as $item) {
+                $phone = $item["telefone"];
+                $curr = [
+                    "id" => $item["id"],
+                    "name" => $item["nome"],
+                    "phone" => "(" . substr($phone, 0, 2) . ") " . substr($phone, 2, 9),
+                    "photo" => $item["path_url"],
+                    "street" => $item["rua"],
+                    "number" => $item["numero"]
+                ];
+                array_push($res, $curr);
+            }
+            return $res;
+        } catch (\PDOException $e) {
+            return [];
+        }
+    }
+
+    public function loginByApp(string $email, string $senha): array
+    {
+        $sqlQuery = "SELECT * FROM usuario WHERE email = :email AND senha = :senha AND tipo_usuario = 1";
+        try {
+            $conn = Connection::getInstance();
+            $stmt = $conn->prepare($sqlQuery);
+            $stmt->bindValue(":email", $email);
+            $stmt->bindValue(":senha", $senha);
+            $stmt->execute();
+            if($stmt->rowCount() > 0) return $stmt->fetch();
+            return [];
+        } catch(\PDOException $e) {
+            return [];
+        }
+    }
+
+    public function newUserByApp(array $newUserProps): bool
+    {
+        $sqlQuery = "INSERT INTO usuario (nome, email, telefone, path_url, senha, tipo_usuario) VALUES (:nome, :email, :telefone, :path_url, :senha, :tipo_usuario)";
+        try {
+            $conn = Connection::getInstance();
+            $stmt = $conn->prepare($sqlQuery);
+            $stmt->bindValue(":nome", $newUserProps["name"]);
+            $stmt->bindValue(":email", $newUserProps["email"]);
+            $stmt->bindValue(":telefone", $newUserProps["phone"]);
+            $stmt->bindValue(":path_url", $newUserProps["path_url"]);
+            $stmt->bindValue(":senha", $newUserProps["password"]);
+            $stmt->bindValue(":tipo_usuario", $newUserProps["user_type"]);
+            return $stmt->execute();
+        } catch (\PDOException $e) {
+            return false;
+        }
+    }
+
+    public function findCompaniesByName(string $name): array
+    {
+        $sqlQuery = "SELECT usuario.*, endereco.rua AS rua, endereco.numero AS numero FROM usuario INNER JOIN endereco ON (endereco.usuario = usuario.id) ";
+        if(strlen(trim($name)) > 0) {
+            $sqlQuery .= " WHERE nome LIKE :nome AND tipo_usuario = 2 ORDER BY nome ASC";
+        } else {
+            $sqlQuery .= " WHERE tipo_usuario = 2 ORDER BY nome ASC ";
+        }
+
+        try {
+            $conn = Connection::getInstance();
+            $stmt = $conn->prepare($sqlQuery);
+            if(strlen(trim($name)) > 0) {
+                $stmt->bindValue(":nome", "%" . $name . "%");
+            }
+            $stmt->execute();
+            $res = [];
+            foreach($stmt->fetchAll() as $item) {
+                $phone = $item["telefone"];
+                $curr = [
+                    "id" => $item["id"],
+                    "name" => $item["nome"],
+                    "phone" => "(" . substr($phone,0,2) . ") " . substr($phone, 2,9),
+                    "photo" => $item["path_url"],
+                    "street" => $item["rua"],
+                    "number" => $item["numero"]
+                ];
+                array_push($res, $curr);
+            }
+            return $res;
+
         } catch (\PDOException $e) {
             return [];
         }

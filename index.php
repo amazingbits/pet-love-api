@@ -43,6 +43,9 @@ $router->put("/updatepassword/{userId}", "UsuarioController:updatePassword");
 $router->put("/update/{id}", "UsuarioController:update");
 $router->delete("/delete/{id}", "UsuarioController:delete");
 $router->get("/pesquisarempresas/raio/{latitude}/{longitude}", "UsuarioController:pesquisarEmpresasPorRaio");
+$router->get("/pesquisarempresas/byname", "UsuarioController:findCompanies");
+$router->get("/pesquisarempresas/byname/{name}", "UsuarioController:findCompaniesByName");
+$router->post("/newUserByApp", "UsuarioController:newUserByApp");
 
 // Animal comportamento
 $router->group("animalcomportamento");
@@ -91,34 +94,6 @@ $router->post("/save", "VacinaController:save");
 $router->put("/update/{id}", "VacinaController:update");
 $router->delete("/delete/{id}", "VacinaController:delete");
 
-// Vacinação
-$router->group("vacinacao");
-$router->get("/", "VacinacaoController:all");
-$router->get("/{id}", "VacinacaoController:getById");
-$router->get("/changeVisibility/{id}/{visibility}", "VacinacaoController:changeVisibility");
-$router->get("/horadevacinar/{idAnimal}", "VacinacaoController:verificarSeEHoraDeVacinar");
-$router->post("/save", "VacinacaoController:save");
-$router->put("/update/{id}", "VacinacaoController:update");
-$router->delete("/delete/{id}", "VacinacaoController:delete");
-
-// Exames
-$router->group("exame");
-$router->get("/{orderColumn}/{orderDirection}/{limit}/{offset}/{justActive}", "ExameController:all");
-$router->get("/{id}", "ExameController:getById");
-$router->get("/changeVisibility/{id}/{visibility}", "ExameController:changeVisibility");
-$router->post("/save", "ExameController:save");
-$router->put("/update/{id}", "ExameController:update");
-$router->delete("/delete/{id}", "ExameController:delete");
-
-// Consultas
-$router->group("consulta");
-$router->get("/{orderColumn}/{orderDirection}/{limit}/{offset}/{justActive}", "ConsultaController:all");
-$router->get("/{id}", "ConsultaController:getById");
-$router->get("/changeVisibility/{id}/{visibility}", "ConsultaController:changeVisibility");
-$router->post("/save", "ConsultaController:save");
-$router->put("/update/{id}", "ConsultaController:update");
-$router->delete("/delete/{id}", "ConsultaController:delete");
-
 // Agendas
 $router->group("agenda");
 $router->get("/{orderColumn}/{orderDirection}/{limit}/{offset}/{justActive}", "AgendaController:all");
@@ -152,21 +127,12 @@ $router->delete("/delete/{id}", "AgendaItemController:delete");
 $router->get("/minhaagenda/{data}/{idAgenda}", "AgendaItemController:minhaAgenda");
 $router->get("/agendaproximosdias/{idUsuario}", "AgendaItemController:agendaParaOsProximosDias");
 
-// Avaliação
-$router->group("avaliacao");
-$router->get("/", "AvaliacaoController:all");
-$router->get("/{id}", "AvaliacaoController:getById");
-$router->get("/byuser/{id}", "AvaliacaoController:getByUser");
-$router->get("/changeVisibility/{id}/{visibility}", "AvaliacaoController:changeVisibility");
-$router->post("/save", "AvaliacaoController:save");
-$router->put("/update/{id}", "AvaliacaoController:update");
-$router->delete("/delete/{id}", "AvaliacaoController:delete");
-
 // Auth
 $router->group("auth");
 $router->post("/login", "AuthController:login");
 $router->get("/islogged", "AuthController:isLogged");
 $router->get("/logout", "AuthController:logout");
+$router->post("/loginbyapp", "AuthController:loginByApp");
 
 // Esqueci a senha
 $router->group("forgotpassword");
