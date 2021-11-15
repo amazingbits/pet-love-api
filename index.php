@@ -140,6 +140,14 @@ $router->get("/{email}", "ForgotPasswordController:forgotPassword");
 $router->get("/verify/{idUser}/{code}", "ForgotPasswordController:verifyCookie");
 $router->post("/changepassword", "ForgotPasswordController:changePassword");
 
+// Vacinação
+$router->group("vacinacao");
+$router->post("/save", "VacinacaoController:save");
+$router->put("/update/{id}", "VacinacaoController:update");
+$router->delete("/delete/{id}", "VacinacaoController:delete");
+$router->get("/byanimal/{animalId}", "VacinacaoController:getByAnimalId");
+$router->get("/byid/{id}", "VacinacaoController:getById");
+
 $router->group("error");
 $router->get("/{status}", "ErrorController:index");
 

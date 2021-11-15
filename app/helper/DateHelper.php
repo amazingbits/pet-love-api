@@ -40,7 +40,7 @@ class DateHelper
         if (!$this->isSqlDate($sqlDate)) return "";
         $sqlDate = str_replace("/", "-", $sqlDate);
         $sqlDate = explode("-", $sqlDate);
-        return $sqlDate[2] . "-" . $sqlDate[1] . "-" . $sqlDate[0];
+        return $sqlDate[2] . "/" . $sqlDate[1] . "/" . $sqlDate[0];
     }
 
     public function dateBrlToSql(string $brlDate): string
@@ -100,5 +100,11 @@ class DateHelper
     public function timeIsBigger(string $timeOne, string $timeTwo): bool
     {
         return strtotime($timeOne) > strtotime($timeTwo);
+    }
+
+    public function dateDifferenceInDays(string $firstDate, string $secondDate): int | bool
+    {
+        if(!$this->isSqlDate($firstDate) || !$this->isSqlDate($secondDate)) return false;
+        return floor(((strtotime($firstDate) - strtotime($secondDate)) / 3600) / 24);
     }
 }

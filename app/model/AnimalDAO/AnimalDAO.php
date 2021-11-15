@@ -11,16 +11,10 @@ use App\Model\VacinacaoDAO\VacinacaoDAO;
 
 class AnimalDAO extends BaseDAO implements iAnimalDAO
 {
-    private VacinacaoDAO $vacinacaoDAO;
-    private ExameDAO $exameDAO;
-    private ConsultaDAO $consultaDAO;
 
     public function __construct()
     {
         $this->setTable("animal");
-        $this->vacinacaoDAO = new VacinacaoDAO();
-        $this->exameDAO = new ExameDAO();
-        $this->consultaDAO = new ConsultaDAO();
     }
 
     public function selectAll(
@@ -119,9 +113,6 @@ class AnimalDAO extends BaseDAO implements iAnimalDAO
         foreach($animais as $key=>$value) {
             $idAnimal = (int)$value["id"];
             $curr = $value;
-            $curr["vacinacoes"] = $this->vacinacaoDAO->retornarVacinacaoPorIdAnimal($idAnimal);
-            $curr["consultas"] = $this->consultaDAO->retornarConsultaPorIdAnimal($idAnimal);
-            $curr["exames"] = $this->exameDAO->pegarExamePorIdAnimal($idAnimal);
             array_push($res, $curr);
         }
         return $res;
@@ -157,9 +148,6 @@ class AnimalDAO extends BaseDAO implements iAnimalDAO
             foreach($animal as $key=>$value) {
                 $idAnimal = (int)$value["id"];
                 $curr = $value;
-                $curr["vacinacoes"] = $this->vacinacaoDAO->retornarVacinacaoPorIdAnimal($idAnimal);
-                $curr["consultas"] = $this->consultaDAO->retornarConsultaPorIdAnimal($idAnimal);
-                $curr["exames"] = $this->exameDAO->pegarExamePorIdAnimal($idAnimal);
                 array_push($res, $curr);
             }
             return $res;

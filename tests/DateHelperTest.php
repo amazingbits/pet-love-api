@@ -70,4 +70,14 @@ class DateHelperTest extends TestCase
         $this->assertEquals(false, $dateHelper->timeIsBigger($time1, $time1));
         $this->assertEquals(true, $dateHelper->timeIsBigger($time2, $time1));
     }
+
+    /** @test */
+    public function differenceInDaysTest()
+    {
+        $dateHelper = new DateHelper();
+        $firstDate = "2021-05-01";
+        $secondDate = "2021-05-20";
+        $diff = $dateHelper->dateDifferenceInDays($firstDate, $secondDate);
+        $this->assertEquals(-19, $diff);
+    }
 }
