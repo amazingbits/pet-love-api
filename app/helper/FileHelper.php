@@ -20,6 +20,13 @@ class FileHelper
         }
     }
 
+    public function deleteFile(string $fileName, string $folderName = "documentos"): void
+    {
+        if(file_exists(self::$dir . $folderName . "/" . $fileName)) {
+            @unlink(self::$dir . $folderName . "/" . $fileName);
+        }
+    }
+
     public function setFolderName(string $folderName): void
     {
         $this->folderName = $folderName;

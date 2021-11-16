@@ -33,9 +33,6 @@ class VacinacaoController extends DefaultController
 
     public function save()
     {
-        if(isset($_FILES)) {
-            //upar arquivo
-        }
 
         $params = $this->params->getJsonParams();
         $needle = [

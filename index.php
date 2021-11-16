@@ -148,6 +148,14 @@ $router->delete("/delete/{id}", "VacinacaoController:delete");
 $router->get("/byanimal/{animalId}", "VacinacaoController:getByAnimalId");
 $router->get("/byid/{id}", "VacinacaoController:getById");
 
+// Documentos
+$router->group("documentos");
+$router->post("/save", "DocumentoController:save");
+$router->put("/update/{documentId}", "DocumentoController:update");
+$router->delete("/delete/{documentId}", "DocumentoController:delete");
+$router->get("/byanimal/{animalId}", "DocumentoController:getByAnimalId");
+$router->get("/byid/{id}", "DocumentoController:getById");
+
 $router->group("error");
 $router->get("/{status}", "ErrorController:index");
 
