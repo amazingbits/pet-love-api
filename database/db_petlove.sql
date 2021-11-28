@@ -243,7 +243,7 @@ create table if not exists documentos(
 -- Empresas
 
 -- Clínica veterinária 3 irmãos
-insert into usuario (senha, nome, email, telefone, path_url, tipo_usuario) values ("e10adc3949ba59abbe56e057f20f883e", "Clínica Veterinária 3 Irmãos", "tresirmaos@email.com", "4833223390", "3-irmaos.png", 2);
+insert into usuario (senha, nome, email, telefone, path_url, tipo_usuario) values ("e10adc3949ba59abbe56e057f20f883e", "Clínica 3 Irmãos", "tresirmaos@email.com", "4833223390", "3-irmaos.png", 2);
 insert into endereco(cep, rua, numero, complemento, cidade, estado, latitude, longitude, usuario) values ("88015160", "Rua Luís Delfino", "34", "", "Florianópolis", "SC", "-48.5490324", "-27.5889147", 2);
 
 -- Puro encanto pet center

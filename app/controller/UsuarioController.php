@@ -67,7 +67,16 @@ class UsuarioController extends DefaultController
             ], HTTP_BAD_REQUEST);
         }
 
-        if($this->usuarioDAO->insert($params)) {
+        $telefone = preg_replace("/[^0-9]/", "", $params["telefone"]);
+        $dt = [
+            "nome" => trim($params["nome"]),
+            "senha" => trim($params["senha"]),
+            "email" => trim($params["email"]),
+            "telefone" => $telefone,
+            "path_url" => trim($params["path_url"]),
+            "tipo_usuario" => (int)$params["tipo_usuario"]
+        ];
+        if($this->usuarioDAO->insert($dt)) {
             $this->response([
                 "message" => "Registro inserido com sucesso!",
                 "id" => $this->usuarioDAO->getLastId()
@@ -112,7 +121,16 @@ class UsuarioController extends DefaultController
             ], HTTP_BAD_REQUEST);
         }
 
-        if($this->usuarioDAO->update($params, ["id" => $id])) {
+        $telefone = preg_replace("/[^0-9]/", "", $params["telefone"]);
+        $dt = [
+            "nome" => trim($params["nome"]),
+            "senha" => trim($params["senha"]),
+            "email" => trim($params["email"]),
+            "telefone" => $telefone,
+            "path_url" => trim($params["path_url"]),
+            "tipo_usuario" => (int)$params["tipo_usuario"]
+        ];
+        if($this->usuarioDAO->update($dt, ["id" => $id])) {
             $this->response([
                 "message" => "Registro atualizado com sucesso!"
             ], HTTP_CREATED);

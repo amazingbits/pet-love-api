@@ -86,7 +86,7 @@ class UsuarioDAO extends BaseDAO implements iUsuarioDAO
             FROM endereco
             INNER JOIN usuario ON
             (endereco.usuario = usuario.id)
-            HAVING raio <= 5 AND tipo_usuario = 2;
+            HAVING raio <= 5 AND usuario.tipo_usuario = 2;
         ";
         try {
             $conn = Connection::getInstance();

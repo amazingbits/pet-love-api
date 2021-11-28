@@ -33,10 +33,10 @@ class DocumentoDAO extends BaseDAO implements iDocumentoDAO
     {
         $sqlQuery = "
             SELECT  documentos.*,
-                    animal.descricao AS descAnimal
+                    animal.nome AS descAnimal
             FROM documentos 
             INNER JOIN animal ON (documentos.animal = animal.id)
-            WHERE animal = :animal
+            WHERE documentos.animal = :animal
         ";
         try {
             $conn = Connection::getInstance();
@@ -53,7 +53,7 @@ class DocumentoDAO extends BaseDAO implements iDocumentoDAO
     {
         $sqlQuery = "
             SELECT  documentos.*,
-                    animal.descricao AS descAnimal
+                    animal.nome AS descAnimal
             FROM documentos 
             INNER JOIN animal ON (documentos.animal = animal.id)
             WHERE documentos.id = :id

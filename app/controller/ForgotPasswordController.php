@@ -124,7 +124,8 @@ class ForgotPasswordController extends DefaultController
 
         if(empty($usuario)) {
             $this->response([
-                "message" => "Não foi encontrado um usuário com este e-mail!"
+                "message" => "Não foi encontrado um usuário com este e-mail!",
+                "status" => HTTP_NOT_FOUND
             ], HTTP_NOT_FOUND);
         }
 
@@ -147,6 +148,7 @@ class ForgotPasswordController extends DefaultController
             $this->email->send($body, "Crie uma nova senha!");
             $this->response([
                 "message" => "Olá, {$usuario['nome']}. Um e-mail foi enviado para {$params['email']}. Siga as instruções para criar uma nova senha",
+                "status" => 200
             ]);
         } catch (\Exception $e) {
             $this->response([

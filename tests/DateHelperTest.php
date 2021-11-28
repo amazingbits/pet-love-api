@@ -80,4 +80,13 @@ class DateHelperTest extends TestCase
         $diff = $dateHelper->dateDifferenceInDays($firstDate, $secondDate);
         $this->assertEquals(-19, $diff);
     }
+
+    /** @test */
+    public function getDayOfWeekTest()
+    {
+        $dateHelper = new DateHelper();
+        $this->assertEquals(0, $dateHelper->getDayOfWeek("2021-11-28"));
+        $this->assertEquals(1, $dateHelper->getDayOfWeek("2021-11-29"));
+        $this->assertEquals(2, $dateHelper->getDayOfWeek("2021-11-30"));
+    }
 }

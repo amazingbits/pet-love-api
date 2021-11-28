@@ -58,9 +58,21 @@ class AgendaItemController extends DefaultController
             ], HTTP_BAD_REQUEST);
         }
 
-        if(empty($this->agendaDAO->selectById((int)$params["agenda"]))) {
+        if(empty($agenda = $this->agendaDAO->selectById((int)$params["agenda"]))) {
             $this->response([
                 "message" => "Agenda inexistente!"
+            ], HTTP_BAD_REQUEST);
+        }
+
+        if($this->dateHelper->getDayOfWeek($params["data"]) !== (int)$agenda["dia_semana"]) {
+            $this->response([
+                "message" => "Esta agenda não funciona neste dia da semana. Dia da semana esperado: {$agenda['dia_semana_ext']}"
+            ], HTTP_BAD_REQUEST);
+        }
+
+        if((int)$agenda["ativo"] === 0) {
+            $this->response([
+                "message" => "Esta agenda se encontra desativada. Para voltar a utilizá-la, ative-a novamente!"
             ], HTTP_BAD_REQUEST);
         }
 
@@ -73,6 +85,12 @@ class AgendaItemController extends DefaultController
         if(!$this->dateHelper->isTime($params["hora"])) {
             $this->response([
                 "message" => "Insira uma hora válida!"
+            ], HTTP_BAD_REQUEST);
+        }
+
+        if(!$this->dateHelper->isBigger($params["data"], date("Y-m-d"))) {
+            $this->response([
+                "message" => "A data para marcação de consultas deve ser superior à data de hoje!"
             ], HTTP_BAD_REQUEST);
         }
 

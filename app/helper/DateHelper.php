@@ -2,6 +2,8 @@
 
 namespace App\Helper;
 
+use phpDocumentor\Reflection\Types\Integer;
+
 class DateHelper
 {
 
@@ -106,5 +108,11 @@ class DateHelper
     {
         if(!$this->isSqlDate($firstDate) || !$this->isSqlDate($secondDate)) return false;
         return floor(((strtotime($firstDate) - strtotime($secondDate)) / 3600) / 24);
+    }
+
+    public function getDayOfWeek(string $date): int | bool
+    {
+        if(!$this->isSqlDate($date)) return false;
+        return (int)date("w", strtotime($date));
     }
 }

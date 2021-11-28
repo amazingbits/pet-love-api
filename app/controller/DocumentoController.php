@@ -132,22 +132,21 @@ class DocumentoController extends DefaultController
             $fileHelper->deleteFile($document["file_path"]);
         }
 
-        $dateHelper = new DateHelper();
+        $descricao = $_POST['descricao'];
+        $date = $_POST['data'];
+        $animal = (int)$_POST['animal'];
+        $notas = trim($_POST['notas']);
+        $file_path = isset($_FILES["file"]) ? $fileName : "";
+
+        $dt = [
+            "descricao" => $descricao,
+            "data" => $date,
+            "animal" => $animal,
+            "notas" => $notas
+        ];
+
         if(isset($_FILES["file"])) {
-            $dt = [
-                "descricao" => trim($_POST['descricao']),
-                "data" => $dateHelper->dateBrlToSql($_POST['data']),
-                "animal" => (int)$_POST['animal'],
-                "notas" => trim($_POST['notas']),
-                "file_path" => $fileName
-            ];
-        } else {
-            $dt = [
-                "descricao" => trim($_POST['descricao']),
-                "data" => $dateHelper->dateBrlToSql($_POST['data']),
-                "animal" => (int)$_POST['animal'],
-                "notas" => trim($_POST['notas'])
-            ];
+            $dt["file_path"] = $file_path;
         }
 
         if($this->documentoDAO->update($dt, ["id" => $documentId])) {
