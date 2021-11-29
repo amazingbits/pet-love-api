@@ -67,12 +67,12 @@ class VacinacaoController extends DefaultController
             ], HTTP_BAD_REQUEST);
         }
 
-        if(!$this->dateHelper->isBigger($params["data_aplicacao"], date("Y-m-d"))) {
-            $this->response([
-                "message" => "A data de aplicação deve ser superior à data de hoje!",
-                "status" => HTTP_BAD_REQUEST
-            ], HTTP_BAD_REQUEST);
-        }
+//        if(!$this->dateHelper->isBigger($params["data_aplicacao"], date("Y-m-d"))) {
+//            $this->response([
+//                "message" => "A data de aplicação deve ser superior à data de hoje!",
+//                "status" => HTTP_BAD_REQUEST
+//            ], HTTP_BAD_REQUEST);
+//        }
 
         if($this->vacinacaoDAO->verifyIfExists((int)$params["vacina"], (int)$params["animal"])) {
            $this->response([
@@ -135,12 +135,12 @@ class VacinacaoController extends DefaultController
             ], HTTP_NOT_FOUND);
         }
 
-        if(!$this->dateHelper->isBigger($params["data_aplicacao"], date("Y-m-d"))) {
-            $this->response([
-                "message" => "A data de aplicação deve ser superior à de hoje!",
-                "status" => HTTP_BAD_REQUEST
-            ], HTTP_BAD_REQUEST);
-        }
+//        if(!$this->dateHelper->isBigger($params["data_aplicacao"], date("Y-m-d"))) {
+//            $this->response([
+//                "message" => "A data de aplicação deve ser superior à de hoje!",
+//                "status" => HTTP_BAD_REQUEST
+//            ], HTTP_BAD_REQUEST);
+//        }
 
         if($this->vacinacaoDAO->update($params, ["id" => $id])) {
             $this->response([
